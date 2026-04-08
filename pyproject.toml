@@ -29,7 +29,7 @@ dependencies = [
 ]
 
 [project.scripts]
-serve = "server.app:main"
+server = "server.app:main"
 
 [project.urls]
 "Homepage" = "https://huggingface.co/spaces/dwivediishivam/a11yguard"
