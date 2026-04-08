@@ -148,7 +148,7 @@ total = 0.5 × detection + 0.3 × location + 0.2 × fix_quality
 ### Local Development
 ```bash
 # Clone and install
-git clone https://huggingface.co/spaces/dwivediishivam/openenv_scaler_hack_web-accessibility-auditor
+git clone https://huggingface.co/spaces/dwivediishivam/a11yguard
 cd a11yguard
 pip install -r requirements.txt
 
