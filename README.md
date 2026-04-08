@@ -1,3 +1,14 @@
+---
+title: A11yGuard - Web Accessibility Audit
+emoji: ♿
+colorFrom: blue
+colorTo: purple
+sdk: docker
+app_port: 7860
+tags:
+  - openenv
+---
+
 # A11yGuard: Web Accessibility Audit Environment
 
 **An OpenEnv environment that evaluates whether AI agents can audit web pages for WCAG 2.1 AA accessibility compliance.**
