@@ -1,7 +1,7 @@
 """Pydantic models for the A11yGuard OpenEnv environment."""
 
 from typing import List, Optional, Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class ViolationReport(BaseModel):
@@ -37,11 +37,19 @@ class AccessibilityObservation(BaseModel):
 
 class AccessibilityReward(BaseModel):
     """Reward breakdown returned after each step."""
-    detection_score: float = Field(description="Fraction of actual violations correctly identified (0.0-1.0)")
-    location_score: float = Field(description="Fraction of detected violations with correct line numbers (0.0-1.0)")
-    fix_score: float = Field(description="Fraction of detected violations with valid fixes (0.0-1.0)")
-    total_reward: float = Field(description="Weighted total reward (0.0-1.0)")
+    detection_score: float = Field(description="Fraction of actual violations correctly identified")
+    location_score: float = Field(description="Fraction of detected violations with correct line numbers")
+    fix_score: float = Field(description="Fraction of detected violations with valid fixes")
+    total_reward: float = Field(description="Weighted total reward strictly in (0, 1)")
     details: dict = Field(default_factory=dict, description="Per-violation grading details")
+
+    @field_validator("detection_score", "location_score", "fix_score", "total_reward", mode="before")
+    @classmethod
+    def clamp_scores(cls, v):
+        """Ensure all scores are strictly between 0 and 1."""
+        if isinstance(v, (int, float)):
+            return max(0.01, min(0.99, float(v)))
+        return v
 
 
 class EnvironmentState(BaseModel):

@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from typing import Optional
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from env.accessibility_env import AccessibilityEnv
 from env.models import AccessibilityAction, AccessibilityObservation, EnvironmentState
@@ -33,7 +33,7 @@ class StepRequest(BaseModel):
 
 class StepResponse(BaseModel):
     observation: AccessibilityObservation
-    reward: float
+    reward: float = Field(ge=0.01, le=0.99)
     done: bool
     info: dict
 
@@ -69,6 +69,8 @@ def step(request: StepRequest):
         raise HTTPException(status_code=400, detail="Environment not initialized. Call /reset first.")
     try:
         obs, reward, done, info = _env.step(request.action)
+        # Clamp reward to open interval (0, 1) — never exactly 0.0 or 1.0
+        reward = max(0.01, min(0.99, reward))
         return StepResponse(observation=obs, reward=reward, done=done, info=info)
     except RuntimeError as e:
         raise HTTPException(status_code=400, detail=str(e))

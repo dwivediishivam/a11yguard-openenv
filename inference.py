@@ -225,8 +225,8 @@ def run_task(difficulty: str, seed: int = 42) -> dict:
     except Exception as e:
         steps += 1
         last_error = str(e).replace('\n', ' ')[:200]
-        rewards.append(0.0)
-        print(f"[STEP] step={steps} action=error reward=0.00 done=true error={last_error}")
+        rewards.append(0.01)
+        print(f"[STEP] step={steps} action=error reward=0.01 done=true error={last_error}")
 
     finally:
         env.close()
