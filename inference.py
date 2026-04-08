@@ -93,27 +93,29 @@ Analyze the code carefully and respond with the JSON format specified. Include l
 
 
 def build_messages(html_code: str, difficulty: str, screenshot_base64: str = None, page_description: str = ""):
-    """Build the message list for the API call."""
+    """Build the message list for the API call.
+
+    Always sends text (HTML code). Sends screenshot only if USE_VISION=true is set
+    in environment variables AND a screenshot is available.
+    """
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    text_prompt = build_user_prompt(html_code, difficulty, page_description)
 
-    user_content = []
+    use_vision = os.getenv("USE_VISION", "false").lower() == "true"
 
-    # Add text prompt
-    user_content.append({
-        "type": "text",
-        "text": build_user_prompt(html_code, difficulty, page_description),
-    })
-
-    # Add screenshot if available (multimodal)
-    if screenshot_base64:
-        user_content.append({
-            "type": "image_url",
-            "image_url": {
-                "url": f"data:image/png;base64,{screenshot_base64}",
-            },
+    if use_vision and screenshot_base64:
+        # Multimodal: text + image
+        messages.append({
+            "role": "user",
+            "content": [
+                {"type": "text", "text": text_prompt},
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{screenshot_base64}"}},
+            ],
         })
+    else:
+        # Text-only: safe for any model
+        messages.append({"role": "user", "content": text_prompt})
 
-    messages.append({"role": "user", "content": user_content})
     return messages
 
 
@@ -182,41 +184,27 @@ def run_task(difficulty: str, seed: int = 42) -> dict:
     try:
         obs = env.reset()
 
-        response_text = None
+        # Build messages — text-only by default, vision only if USE_VISION=true
+        messages = build_messages(
+            html_code=obs.html_code,
+            difficulty=obs.difficulty,
+            screenshot_base64=obs.screenshot_base64,
+            page_description=obs.page_description or "",
+        )
 
-        # Try with screenshot first, fallback to text-only if it fails
-        for attempt, use_screenshot in enumerate([True, False]):
-            try:
-                screenshot = obs.screenshot_base64 if use_screenshot else None
-                messages = build_messages(
-                    html_code=obs.html_code,
-                    difficulty=obs.difficulty,
-                    screenshot_base64=screenshot,
-                    page_description=obs.page_description or "",
-                )
+        response = client.chat.completions.create(
+            model=MODEL_NAME,
+            messages=messages,
+            temperature=TEMPERATURE,
+            max_tokens=MAX_TOKENS,
+            timeout=120,
+        )
 
-                response = client.chat.completions.create(
-                    model=MODEL_NAME,
-                    messages=messages,
-                    temperature=TEMPERATURE,
-                    max_tokens=MAX_TOKENS,
-                    timeout=120,
-                )
+        response_text = response.choices[0].message.content or ""
 
-                response_text = response.choices[0].message.content or ""
-
-                # Check if response is an error page (HTML instead of JSON)
-                if response_text.strip().startswith("<!DOCTYPE") or response_text.strip().startswith("<html"):
-                    if use_screenshot:
-                        continue  # Retry without screenshot
-                    else:
-                        raise ValueError("LLM returned HTML error page instead of audit response")
-
-                break  # Success
-            except Exception as api_err:
-                if not use_screenshot:
-                    raise  # Both attempts failed
-                continue  # Retry without screenshot
+        # Guard: if model returned an HTML error page instead of JSON
+        if response_text.strip().startswith("<!DOCTYPE") or response_text.strip().startswith("<html"):
+            raise ValueError("Model returned an HTML error page instead of a JSON audit response")
 
         # Parse response into action
         action = parse_llm_response(response_text)
