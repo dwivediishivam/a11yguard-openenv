@@ -91,11 +91,11 @@ def list_tasks():
     return get_task_summary()
 
 
-def start():
+def main():
     import uvicorn
     port = int(os.environ.get("PORT", 7860))
     uvicorn.run(app, host="0.0.0.0", port=port)
 
 
 if __name__ == "__main__":
-    start()
+    main()
