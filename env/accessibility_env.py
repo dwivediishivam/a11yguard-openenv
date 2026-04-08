@@ -87,7 +87,7 @@ class AccessibilityEnv:
 
         # Grade the audit
         reward_breakdown = grade_audit(action.violations, gt)
-        reward = reward_breakdown.total_reward
+        reward = max(0.01, min(0.99, reward_breakdown.total_reward))
         self._last_reward = reward
 
         # Episode ends after one step (single-submission audit)

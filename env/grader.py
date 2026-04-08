@@ -249,19 +249,20 @@ def grade_audit(
         # No violations expected (clean page)
         if not reported_violations:
             return AccessibilityReward(
-                detection_score=1.0,
-                location_score=1.0,
-                fix_score=1.0,
-                total_reward=1.0,
+                detection_score=0.99,
+                location_score=0.99,
+                fix_score=0.99,
+                total_reward=0.99,
                 details={"message": "Correctly identified no violations"},
             )
         else:
             penalty = min(1.0, len(reported_violations) * 0.2)
+            raw = max(0.0, 1.0 - penalty)
             return AccessibilityReward(
-                detection_score=1.0 - penalty,
-                location_score=0.0,
-                fix_score=0.0,
-                total_reward=max(0.0, 1.0 - penalty),
+                detection_score=max(0.01, min(0.99, 1.0 - penalty)),
+                location_score=0.01,
+                fix_score=0.01,
+                total_reward=max(0.01, min(0.99, raw)),
                 details={"message": "False positives reported", "false_positives": len(reported_violations)},
             )
 
@@ -331,6 +332,12 @@ def grade_audit(
         + location_weight * location_score
         + fix_weight * fix_score_avg
     )
+
+    # Clamp all scores to open interval (0, 1) — never exactly 0.0 or 1.0
+    total_reward = max(0.01, min(0.99, total_reward))
+    detection_score = max(0.01, min(0.99, detection_score))
+    location_score = max(0.01, min(0.99, location_score))
+    fix_score_avg = max(0.01, min(0.99, fix_score_avg))
 
     return AccessibilityReward(
         detection_score=round(detection_score, 4),

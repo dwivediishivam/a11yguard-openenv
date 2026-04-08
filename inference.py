@@ -213,6 +213,7 @@ def run_task(difficulty: str, seed: int = 42) -> dict:
         # Submit to environment
         obs, reward, done, info = env.step(action)
         steps += 1
+        reward = max(0.01, min(0.99, reward))
         rewards.append(reward)
         score = reward
 
@@ -230,6 +231,9 @@ def run_task(difficulty: str, seed: int = 42) -> dict:
     finally:
         env.close()
 
+    # Failsafe: clamp final score to open interval (0, 1)
+    score = max(0.01, min(0.99, score))
+    rewards = [max(0.01, min(0.99, r)) for r in rewards]
     rewards_str = ",".join(f"{r:.2f}" for r in rewards)
     print(f"[END] success={str(success).lower()} steps={steps} score={score:.2f} rewards={rewards_str}")
 
