@@ -2,9 +2,14 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# Install uv
+RUN pip install --no-cache-dir uv
+
+# Copy dependency files first for layer caching
+COPY pyproject.toml uv.lock ./
+
 # Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN uv pip install --system --no-cache openenv-core fastapi uvicorn pydantic openai huggingface_hub requests
 
 # Copy project files
 COPY . .
@@ -12,5 +17,5 @@ COPY . .
 # Expose port
 EXPOSE 7860
 
-# Run the FastAPI server
-CMD ["python", "-m", "uvicorn", "server.main:app", "--host", "0.0.0.0", "--port", "7860"]
+# Run the server
+CMD ["python", "-m", "uvicorn", "server.app:app", "--host", "0.0.0.0", "--port", "7860"]
