@@ -1,0 +1,76 @@
+name: a11yguard
+version: 1.0.0
+description: >
+  A11yGuard: Web Accessibility Audit Environment for AI Agents.
+  Evaluates whether AI agents can identify WCAG 2.1 AA accessibility violations
+  in HTML/CSS code and screenshots, locate them precisely, and suggest fixes.
+  Features dual-modality input (source code + visual screenshot) across 36 tasks
+  at three difficulty levels.
+
+author: dwivediishivam
+tags:
+  - openenv
+  - accessibility
+  - wcag
+  - web-audit
+  - multimodal
+
+tasks:
+  - name: easy-audit
+    description: >
+      Audit a webpage with 1-2 obvious WCAG violations. Agent receives HTML code
+      and a screenshot. Must identify the violation type, point to the correct
+      line number, and suggest a fix.
+    difficulty: easy
+
+  - name: medium-audit
+    description: >
+      Audit a webpage with 2-3 moderate WCAG violations including subtler issues
+      like insufficient contrast, missing ARIA attributes, and improper form
+      markup. Requires understanding of ARIA patterns and semantic HTML.
+    difficulty: medium
+
+  - name: hard-audit
+    description: >
+      Audit a complex real-world webpage with 5+ WCAG violations spanning
+      multiple categories: navigation, interactive widgets, forms, media,
+      and content structure. Requires deep understanding of WAI-ARIA patterns,
+      keyboard accessibility, and screen reader behavior.
+    difficulty: hard
+
+observation_space:
+  type: object
+  properties:
+    task_id: { type: string }
+    difficulty: { type: string, enum: [easy, medium, hard] }
+    html_code: { type: string }
+    screenshot_base64: { type: string, nullable: true }
+    wcag_version: { type: string }
+    total_violations_hint: { type: integer, nullable: true }
+    step_number: { type: integer }
+    prior_feedback: { type: string, nullable: true }
+    page_description: { type: string, nullable: true }
+
+action_space:
+  type: object
+  properties:
+    violations:
+      type: array
+      items:
+        type: object
+        properties:
+          violation_type: { type: string }
+          wcag_criterion: { type: string }
+          line_numbers: { type: array, items: { type: integer } }
+          description: { type: string }
+          suggested_fix: { type: string }
+    overall_verdict: { type: string, enum: [accessible, partially_accessible, inaccessible] }
+
+reward_space:
+  type: object
+  description: >
+    Weighted combination of three sub-scores:
+    detection (50%): fraction of real violations found.
+    location (30%): fraction of found violations with correct line numbers (±3 tolerance).
+    fix quality (20%): fraction of suggested fixes that address the issue.
+  range: [0.0, 1.0]

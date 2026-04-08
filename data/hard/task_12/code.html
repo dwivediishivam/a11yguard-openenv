@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudVault - My Files</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; color: #2c3e50; }
+        .layout { display: flex; min-height: 100vh; }
+        .sidebar { width: 240px; background: white; border-right: 1px solid #e0e6ed; padding: 20px 0; }
+        .sidebar .logo { padding: 0 20px; font-size: 1.3rem; font-weight: bold; color: #5b6abf; margin-bottom: 25px; display: flex; align-items: center; gap: 8px; }
+        .sidebar .logo .icon { width: 28px; height: 28px; background: #5b6abf; border-radius: 6px; }
+        .sidebar .btn-upload { margin: 0 15px 20px; padding: 10px; background: #5b6abf; color: white; border: none; border-radius: 8px; width: calc(100% - 30px); font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .sidebar .nav-section { padding: 0 10px; margin-bottom: 20px; }
+        .sidebar .nav-section h4 { font-size: 0.7rem; text-transform: uppercase; color: #7f8c9b; padding: 0 10px; margin-bottom: 8px; }
+        .sidebar .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 6px; font-size: 0.9rem; color: #4a5568; cursor: pointer; }
+        .sidebar .nav-item:hover { background: #f0f3f5; }
+        .sidebar .nav-item.active { background: #eef0ff; color: #5b6abf; font-weight: 600; }
+        .sidebar .nav-icon { width: 20px; height: 20px; background: #b0b8c4; border-radius: 4px; flex-shrink: 0; }
+        .sidebar .nav-item.active .nav-icon { background: #5b6abf; }
+        .storage-bar { margin: 20px 15px 0; padding-top: 15px; border-top: 1px solid #e0e6ed; }
+        .storage-bar .label { font-size: 0.75rem; color: #7f8c9b; margin-bottom: 6px; }
+        .storage-bar .bar { height: 6px; background: #e0e6ed; border-radius: 3px; overflow: hidden; }
+        .storage-bar .bar .fill { height: 100%; width: 68%; background: #5b6abf; border-radius: 3px; }
+        .storage-bar .detail { font-size: 0.7rem; color: #7f8c9b; margin-top: 4px; }
+        .main { flex: 1; display: flex; flex-direction: column; }
+        .topbar { background: white; padding: 12px 25px; border-bottom: 1px solid #e0e6ed; display: flex; justify-content: space-between; align-items: center; }
+        .breadcrumb-trail { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; }
+        .breadcrumb-trail span { color: #7f8c9b; }
+        .breadcrumb-trail a { color: #5b6abf; text-decoration: none; }
+        .breadcrumb-trail .separator { color: #b0b8c4; }
+        .topbar-actions { display: flex; gap: 10px; align-items: center; }
+        .search-box { padding: 8px 14px; border: 1px solid #d0d7de; border-radius: 6px; font-size: 0.85rem; width: 250px; font-family: inherit; }
+        .view-toggle { display: flex; gap: 2px; background: #f0f3f5; border-radius: 6px; padding: 2px; }
+        .view-toggle div { padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; color: #7f8c9b; }
+        .view-toggle div.active { background: white; color: #2c3e50; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+        .content { flex: 1; padding: 20px 25px; overflow-y: auto; }
+        .drop-zone { border: 2px dashed #d0d7de; border-radius: 12px; padding: 30px; text-align: center; margin-bottom: 25px; color: #7f8c9b; background: #fafbfc; transition: all 0.2s; }
+        .drop-zone.dragover { border-color: #5b6abf; background: #eef0ff; }
+        .drop-zone .icon { font-size: 2rem; margin-bottom: 8px; }
+        .drop-zone p { font-size: 0.9rem; }
+        .drop-zone .hint { font-size: 0.75rem; margin-top: 4px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .section-header h3 { font-size: 1rem; font-weight: 600; }
+        .section-header .sort-by { font-size: 0.8rem; color: #7f8c9b; cursor: pointer; }
+        .folders-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 30px; }
+        .folder-card { background: white; border: 1px solid #e0e6ed; border-radius: 10px; padding: 15px; cursor: pointer; transition: box-shadow 0.2s; display: flex; align-items: center; gap: 10px; }
+        .folder-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .folder-icon { width: 36px; height: 36px; background: #ffeaa7; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .folder-info .name { font-size: 0.85rem; font-weight: 600; }
+        .folder-info .count { font-size: 0.75rem; color: #7f8c9b; }
+        .files-table { width: 100%; border-collapse: collapse; }
+        .files-table th { text-align: left; padding: 10px 12px; font-size: 0.75rem; text-transform: uppercase; color: #7f8c9b; border-bottom: 1px solid #e0e6ed; font-weight: 600; }
+        .files-table td { padding: 10px 12px; border-bottom: 1px solid #f0f3f5; font-size: 0.85rem; }
+        .files-table tr:hover { background: #fafbfc; }
+        .file-name-cell { display: flex; align-items: center; gap: 10px; }
+        .file-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; color: white; flex-shrink: 0; }
+        .file-icon.pdf { background: #e74c3c; }
+        .file-icon.doc { background: #2e86de; }
+        .file-icon.xls { background: #27ae60; }
+        .file-icon.img { background: #9b59b6; }
+        .file-icon.zip { background: #f39c12; }
+        .file-icon.ppt { background: #e67e22; }
+        .file-name { font-weight: 500; }
+        .file-actions { display: flex; gap: 8px; opacity: 0; transition: opacity 0.2s; }
+        .files-table tr:hover .file-actions { opacity: 1; }
+        .file-action-btn { width: 28px; height: 28px; border: 1px solid #d0d7de; border-radius: 4px; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #7f8c9b; }
+        .checkbox-cell { width: 40px; }
+        .checkbox-cell input { width: 16px; height: 16px; cursor: pointer; }
+        .context-menu { display: none; position: fixed; background: white; border: 1px solid #e0e6ed; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); padding: 6px 0; min-width: 180px; z-index: 100; }
+        .context-menu.visible { display: block; }
+        .context-menu-item { padding: 8px 16px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        .context-menu-item:hover { background: #f0f3f5; }
+        .context-menu-item .cm-icon { width: 16px; height: 16px; background: #b0b8c4; border-radius: 3px; }
+        .context-menu-divider { height: 1px; background: #e0e6ed; margin: 4px 0; }
+        .context-menu-item.danger { color: #e74c3c; }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <div class="sidebar">
+            <div class="logo">
+                <span class="icon"></span> CloudVault
+            </div>
+            <button class="btn-upload">+ Upload Files</button>
+            <div class="nav-section">
+                <h4>Quick Access</h4>
+                <div class="nav-item active"><span class="nav-icon"></span> My Files</div>
+                <div class="nav-item"><span class="nav-icon"></span> Shared with Me</div>
+                <div class="nav-item"><span class="nav-icon"></span> Recent</div>
+                <div class="nav-item"><span class="nav-icon"></span> Starred</div>
+                <div class="nav-item"><span class="nav-icon"></span> Trash</div>
+            </div>
+            <div class="storage-bar">
+                <div class="label">Storage</div>
+                <div class="bar"><div class="fill"></div></div>
+                <div class="detail">6.8 GB of 10 GB used</div>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="topbar">
+                <div class="breadcrumb-trail">
+                    <a href="#">My Files</a>
+                    <span class="separator">/</span>
+                    <a href="#">Projects</a>
+                    <span class="separator">/</span>
+                    <span>Q1 Reports</span>
+                </div>
+                <div class="topbar-actions">
+                    <input type="text" class="search-box" placeholder="Search files...">
+                    <div class="view-toggle">
+                        <div class="active">List</div>
+                        <div>Grid</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="drop-zone" id="dropZone">
+                    <div class="icon">&#x1F4C1;</div>
+                    <p>Drag and drop files here to upload</p>
+                    <p class="hint">or click to browse</p>
+                </div>
+
+                <div class="section-header">
+                    <h3>Folders</h3>
+                </div>
+                <div class="folders-grid">
+                    <div class="folder-card" ondblclick="openFolder('analytics')">
+                        <div class="folder-icon">&#x1F4C1;</div>
+                        <div class="folder-info">
+                            <div class="name">Analytics</div>
+                            <div class="count">12 files</div>
+                        </div>
+                    </div>
+                    <div class="folder-card" ondblclick="openFolder('marketing')">
+                        <div class="folder-icon">&#x1F4C1;</div>
+                        <div class="folder-info">
+                            <div class="name">Marketing</div>
+                            <div class="count">8 files</div>
+                        </div>
+                    </div>
+                    <div class="folder-card" ondblclick="openFolder('financials')">
+                        <div class="folder-icon">&#x1F4C1;</div>
+                        <div class="folder-info">
+                            <div class="name">Financials</div>
+                            <div class="count">23 files</div>
+                        </div>
+                    </div>
+                    <div class="folder-card" ondblclick="openFolder('presentations')">
+                        <div class="folder-icon">&#x1F4C1;</div>
+                        <div class="folder-info">
+                            <div class="name">Presentations</div>
+                            <div class="count">5 files</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h3>Files</h3>
+                    <span class="sort-by">Sort by: Modified &#x25BE;</span>
+                </div>
+                <table class="files-table">
+                    <thead>
+                        <tr>
+                            <th class="checkbox-cell"><input type="checkbox"></th>
+                            <th>Name</th>
+                            <th>Modified</th>
+                            <th>Size</th>
+                            <th>Owner</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr oncontextmenu="showContextMenu(event)">
+                            <td class="checkbox-cell"><input type="checkbox"></td>
+                            <td><div class="file-name-cell"><span class="file-icon pdf">PDF</span><span class="file-name">Q1-Revenue-Report.pdf</span></div></td>
+                            <td>Apr 7, 2026</td>
+                            <td>2.4 MB</td>
+                            <td>Alex T.</td>
+                            <td><div class="file-actions"><span class="file-action-btn">&#x2B07;</span><span class="file-action-btn">&#x22EE;</span></div></td>
+                        </tr>
+                        <tr oncontextmenu="showContextMenu(event)">
+                            <td class="checkbox-cell"><input type="checkbox"></td>
+                            <td><div class="file-name-cell"><span class="file-icon xls">XLS</span><span class="file-name">Budget-Forecast-2026.xlsx</span></div></td>
+                            <td>Apr 5, 2026</td>
+                            <td>1.1 MB</td>
+                            <td>Sarah C.</td>
+                            <td><div class="file-actions"><span class="file-action-btn">&#x2B07;</span><span class="file-action-btn">&#x22EE;</span></div></td>
+                        </tr>
+                        <tr oncontextmenu="showContextMenu(event)">
+                            <td class="checkbox-cell"><input type="checkbox"></td>
+                            <td><div class="file-name-cell"><span class="file-icon doc">DOC</span><span class="file-name">Meeting-Notes-March.docx</span></div></td>
+                            <td>Mar 28, 2026</td>
+                            <td>342 KB</td>
+                            <td>James P.</td>
+                            <td><div class="file-actions"><span class="file-action-btn">&#x2B07;</span><span class="file-action-btn">&#x22EE;</span></div></td>
+                        </tr>
+                        <tr oncontextmenu="showContextMenu(event)">
+                            <td class="checkbox-cell"><input type="checkbox"></td>
+                            <td><div class="file-name-cell"><span class="file-icon img">IMG</span><span class="file-name">Dashboard-Screenshot.png</span></div></td>
+                            <td>Mar 25, 2026</td>
+                            <td>856 KB</td>
+                            <td>Alex T.</td>
+                            <td><div class="file-actions"><span class="file-action-btn">&#x2B07;</span><span class="file-action-btn">&#x22EE;</span></div></td>
+                        </tr>
+                        <tr oncontextmenu="showContextMenu(event)">
+                            <td class="checkbox-cell"><input type="checkbox"></td>
+                            <td><div class="file-name-cell"><span class="file-icon ppt">PPT</span><span class="file-name">Q1-Board-Presentation.pptx</span></div></td>
+                            <td>Mar 20, 2026</td>
+                            <td>5.7 MB</td>
+                            <td>Maya R.</td>
+                            <td><div class="file-actions"><span class="file-action-btn">&#x2B07;</span><span class="file-action-btn">&#x22EE;</span></div></td>
+                        </tr>
+                        <tr oncontextmenu="showContextMenu(event)">
+                            <td class="checkbox-cell"><input type="checkbox"></td>
+                            <td><div class="file-name-cell"><span class="file-icon zip">ZIP</span><span class="file-name">Assets-Archive-Q1.zip</span></div></td>
+                            <td>Mar 15, 2026</td>
+                            <td>12.3 MB</td>
+                            <td>Alex T.</td>
+                            <td><div class="file-actions"><span class="file-action-btn">&#x2B07;</span><span class="file-action-btn">&#x22EE;</span></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="context-menu" id="contextMenu">
+        <div class="context-menu-item"><span class="cm-icon"></span> Open</div>
+        <div class="context-menu-item"><span class="cm-icon"></span> Download</div>
+        <div class="context-menu-item"><span class="cm-icon"></span> Share</div>
+        <div class="context-menu-item"><span class="cm-icon"></span> Rename</div>
+        <div class="context-menu-item"><span class="cm-icon"></span> Move to</div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item"><span class="cm-icon"></span> Details</div>
+        <div class="context-menu-item danger"><span class="cm-icon"></span> Delete</div>
+    </div>
+
+    <script>
+        var dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        dropZone.addEventListener('dragleave', function() {
+            dropZone.classList.remove('dragover');
+        });
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            // Handle file upload
+        });
+
+        function showContextMenu(e) {
+            e.preventDefault();
+            var menu = document.getElementById('contextMenu');
+            menu.style.left = e.clientX + 'px';
+            menu.style.top = e.clientY + 'px';
+            menu.classList.add('visible');
+        }
+        document.addEventListener('click', function() {
+            document.getElementById('contextMenu').classList.remove('visible');
+        });
+
+        function openFolder(name) {}
+    </script>
+</body>
+</html>

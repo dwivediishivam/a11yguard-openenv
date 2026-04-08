@@ -1,0 +1,23 @@
+{
+  "violations": [
+    {
+      "violation_type": "autocomplete_disabled_on_personal_fields",
+      "wcag_criterion": "1.3.5",
+      "line_numbers": [42, 46, 50, 55, 59],
+      "description": "Personal information fields (name, DOB, phone, email) have autocomplete='off' instead of appropriate autocomplete tokens. WCAG 1.3.5 requires that common personal fields use proper autocomplete values to help users with cognitive disabilities fill forms automatically.",
+      "severity": "serious",
+      "reference_fix": "<input type=\"text\" id=\"firstname\" name=\"firstname\" autocomplete=\"given-name\">\n<input type=\"text\" id=\"lastname\" name=\"lastname\" autocomplete=\"family-name\">\n<input type=\"text\" id=\"dob\" name=\"dob\" autocomplete=\"bday\">\n<input type=\"tel\" id=\"phone\" name=\"phone\" autocomplete=\"tel\">\n<input type=\"email\" id=\"email\" name=\"email\" autocomplete=\"email\">"
+    },
+    {
+      "violation_type": "progress_indicator_not_accessible",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [34],
+      "description": "The multi-step progress indicator (Step 1 of 3) is not marked up with appropriate ARIA attributes (e.g., role='progressbar' or aria-current='step') to convey progress state to screen readers.",
+      "severity": "serious",
+      "reference_fix": "<div class=\"status-bar\" role=\"progressbar\" aria-valuenow=\"1\" aria-valuemin=\"1\" aria-valuemax=\"3\" aria-label=\"Form progress: Step 1 of 3, Personal Information\">"
+    }
+  ],
+  "total_violations": 2,
+  "difficulty": "medium",
+  "page_description": "A medical patient intake form with multi-step progress indicator. Personal fields have autocomplete disabled instead of proper tokens, and the progress indicator lacks ARIA markup."
+}

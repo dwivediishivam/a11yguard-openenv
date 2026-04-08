@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSupport - Submit a Ticket</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f6fa; color: #333; }
+        header { background: #0984e3; color: white; padding: 20px 40px; }
+        header h1 { font-size: 1.4rem; }
+        main { max-width: 600px; margin: 30px auto; padding: 0 20px; }
+        .form-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .form-card h2 { margin-bottom: 5px; }
+        .form-card .subtitle { color: #888; margin-bottom: 25px; }
+        .field { margin-bottom: 18px; }
+        .field label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.9rem; }
+        .field input, .field textarea, .field select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .field textarea { height: 100px; resize: vertical; }
+        .priority-group { margin-bottom: 18px; }
+        .priority-group p { font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; }
+        .radio-option { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .radio-option input[type="radio"] { width: auto; }
+        .radio-option span { font-size: 0.95rem; }
+        .contact-pref { margin-bottom: 18px; }
+        .contact-pref p { font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; }
+        .checkbox-option { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .checkbox-option input[type="checkbox"] { width: auto; }
+        button { background: #0984e3; color: white; border: none; padding: 12px 30px; border-radius: 6px; font-size: 1rem; cursor: pointer; width: 100%; }
+        footer { text-align: center; padding: 30px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TechSupport Center</h1>
+    </header>
+    <main>
+        <div class="form-card">
+            <h2>Submit a Support Ticket</h2>
+            <p class="subtitle">Describe your issue and we'll get back to you within 24 hours.</p>
+            <form action="/submit-ticket" method="POST">
+                <div class="field">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname">
+                </div>
+                <div class="field">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="field">
+                    <label for="category">Issue Category</label>
+                    <select id="category" name="category">
+                        <option value="">Select a category</option>
+                        <option value="hardware">Hardware</option>
+                        <option value="software">Software</option>
+                        <option value="network">Network</option>
+                        <option value="account">Account Access</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="description">Issue Description</label>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+
+                <div class="priority-group">
+                    <p>Priority Level</p>
+                    <div class="radio-option">
+                        <input type="radio" name="priority" value="low">
+                        <span>Low - Not urgent</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="priority" value="medium">
+                        <span>Medium - Affecting work</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="priority" value="high">
+                        <span>High - System down</span>
+                    </div>
+                </div>
+
+                <div class="contact-pref">
+                    <p>Preferred Contact Method</p>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="contact" value="email">
+                        <span>Email</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="contact" value="phone">
+                        <span>Phone</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="contact" value="chat">
+                        <span>Live Chat</span>
+                    </div>
+                </div>
+
+                <button type="submit">Submit Ticket</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 TechSupport Center</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshBites - Contact Us</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #fafafa; color: #333; }
+        header { background: #27ae60; color: white; padding: 20px 40px; }
+        header h1 { font-size: 1.5rem; }
+        main { max-width: 500px; margin: 40px auto; padding: 0 20px; }
+        h2 { margin-bottom: 8px; }
+        .subtitle { color: #777; margin-bottom: 25px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .form-group textarea { height: 120px; resize: vertical; }
+        button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover { background: #219a52; }
+        footer { text-align: center; padding: 40px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FreshBites</h1>
+    </header>
+    <main>
+        <h2>Contact Us</h2>
+        <p class="subtitle">We'd love to hear from you. Send us a message!</p>
+        <form action="/submit" method="POST">
+            <div class="form-group">
+                <input type="text" id="name" placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <input type="text" id="subject" placeholder="Subject">
+            </div>
+            <div class="form-group">
+                <textarea id="message" placeholder="Your Message"></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2025 FreshBites Restaurant</p>
+    </footer>
+</body>
+</html>

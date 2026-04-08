@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalendarPro - Weekly View</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; color: #2c3e50; }
+        header { background: white; padding: 15px 25px; border-bottom: 1px solid #e0e6ed; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.2rem; color: #5b6abf; }
+        .header-actions { display: flex; gap: 10px; align-items: center; }
+        .btn { padding: 8px 16px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; border: 1px solid #d0d7de; background: white; color: #4a5568; }
+        .btn-primary { background: #5b6abf; color: white; border-color: #5b6abf; }
+        .toolbar { background: white; padding: 12px 25px; border-bottom: 1px solid #e0e6ed; display: flex; justify-content: space-between; align-items: center; }
+        .toolbar .nav-btns { display: flex; gap: 8px; align-items: center; }
+        .toolbar .nav-btns .arrow { width: 32px; height: 32px; border: 1px solid #d0d7de; border-radius: 6px; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #4a5568; }
+        .toolbar .current-week { font-size: 1.1rem; font-weight: 600; }
+        .toolbar .view-tabs { display: flex; gap: 4px; background: #f0f3f5; border-radius: 6px; padding: 3px; }
+        .toolbar .view-tab { padding: 6px 14px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; border: none; background: transparent; color: #4a5568; }
+        .toolbar .view-tab.active { background: white; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .calendar-wrapper { display: flex; height: calc(100vh - 120px); }
+        .mini-sidebar { width: 220px; background: white; border-right: 1px solid #e0e6ed; padding: 20px; }
+        .mini-cal { margin-bottom: 20px; }
+        .mini-cal .month-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 600; font-size: 0.9rem; }
+        .mini-cal .month-header span { cursor: pointer; color: #7f8c9b; }
+        .mini-cal .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; font-size: 0.75rem; }
+        .mini-cal .day-label { color: #7f8c9b; font-weight: 600; padding: 4px 0; }
+        .mini-cal .day { padding: 5px; border-radius: 50%; cursor: pointer; }
+        .mini-cal .day:hover { background: #e8ecf0; }
+        .mini-cal .day.today { background: #5b6abf; color: white; }
+        .mini-cal .day.selected { border: 2px solid #5b6abf; }
+        .my-calendars { margin-top: 20px; }
+        .my-calendars h4 { font-size: 0.8rem; text-transform: uppercase; color: #7f8c9b; margin-bottom: 10px; }
+        .cal-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 0.85rem; }
+        .cal-dot { width: 10px; height: 10px; border-radius: 3px; }
+        .cal-dot.work { background: #5b6abf; }
+        .cal-dot.personal { background: #27ae60; }
+        .cal-dot.team { background: #e67e22; }
+        .weekly-grid { flex: 1; overflow-y: auto; }
+        .day-headers { display: grid; grid-template-columns: 65px repeat(7, 1fr); background: white; border-bottom: 1px solid #e0e6ed; position: sticky; top: 0; z-index: 5; }
+        .day-header { padding: 10px 8px; text-align: center; border-left: 1px solid #f0f3f5; }
+        .day-header .day-name { font-size: 0.75rem; color: #7f8c9b; text-transform: uppercase; }
+        .day-header .day-num { font-size: 1.3rem; font-weight: 600; margin-top: 2px; }
+        .day-header.today .day-num { background: #5b6abf; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 2px auto 0; }
+        .time-grid { display: grid; grid-template-columns: 65px repeat(7, 1fr); }
+        .time-label { padding: 0 8px; font-size: 0.7rem; color: #7f8c9b; text-align: right; height: 60px; position: relative; }
+        .time-label span { position: absolute; top: -7px; right: 8px; }
+        .day-col { border-left: 1px solid #f0f3f5; position: relative; height: 60px; border-bottom: 1px solid #f5f7fa; }
+        .day-col:hover { background: #fafbfc; }
+        .event { position: absolute; left: 2px; right: 2px; border-radius: 4px; padding: 3px 6px; font-size: 0.75rem; overflow: hidden; cursor: pointer; z-index: 2; }
+        .event.blue { background: #dbeafe; color: #1e40af; border-left: 3px solid #5b6abf; }
+        .event.green { background: #d1fae5; color: #065f46; border-left: 3px solid #27ae60; }
+        .event.orange { background: #ffedd5; color: #9a3412; border-left: 3px solid #e67e22; }
+        .event.red { background: #fee2e2; color: #991b1b; border-left: 3px solid #e74c3c; }
+        .event .event-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .event .event-time { font-size: 0.65rem; opacity: 0.8; }
+        .status-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+        .status-dot.confirmed { background: #27ae60; }
+        .status-dot.tentative { background: #f39c12; }
+        .status-dot.cancelled { background: #e74c3c; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CalendarPro</h1>
+        <div class="header-actions">
+            <button class="btn">Today</button>
+            <button class="btn btn-primary">+ New Event</button>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <div class="nav-btns">
+            <div class="arrow" onclick="prevWeek()">&lt;</div>
+            <div class="arrow" onclick="nextWeek()">&gt;</div>
+            <span class="current-week">April 6 - 12, 2026</span>
+        </div>
+        <div class="view-tabs">
+            <div class="view-tab">Day</div>
+            <div class="view-tab active">Week</div>
+            <div class="view-tab">Month</div>
+            <div class="view-tab">Year</div>
+        </div>
+    </div>
+
+    <div class="calendar-wrapper">
+        <aside class="mini-sidebar">
+            <div class="mini-cal">
+                <div class="month-header">
+                    <span>&lt;</span>
+                    April 2026
+                    <span>&gt;</span>
+                </div>
+                <div class="days-grid">
+                    <div class="day-label">S</div>
+                    <div class="day-label">M</div>
+                    <div class="day-label">T</div>
+                    <div class="day-label">W</div>
+                    <div class="day-label">T</div>
+                    <div class="day-label">F</div>
+                    <div class="day-label">S</div>
+                    <div class="day"></div>
+                    <div class="day"></div>
+                    <div class="day"></div>
+                    <div class="day">1</div>
+                    <div class="day">2</div>
+                    <div class="day">3</div>
+                    <div class="day">4</div>
+                    <div class="day">5</div>
+                    <div class="day">6</div>
+                    <div class="day">7</div>
+                    <div class="day today">8</div>
+                    <div class="day">9</div>
+                    <div class="day">10</div>
+                    <div class="day">11</div>
+                    <div class="day">12</div>
+                    <div class="day">13</div>
+                    <div class="day">14</div>
+                    <div class="day">15</div>
+                    <div class="day">16</div>
+                    <div class="day">17</div>
+                    <div class="day">18</div>
+                    <div class="day">19</div>
+                    <div class="day">20</div>
+                    <div class="day">21</div>
+                    <div class="day">22</div>
+                    <div class="day">23</div>
+                    <div class="day">24</div>
+                    <div class="day">25</div>
+                    <div class="day">26</div>
+                    <div class="day">27</div>
+                    <div class="day">28</div>
+                    <div class="day">29</div>
+                    <div class="day">30</div>
+                </div>
+            </div>
+
+            <div class="my-calendars">
+                <h4>My Calendars</h4>
+                <div class="cal-item"><span class="cal-dot work"></span> Work</div>
+                <div class="cal-item"><span class="cal-dot personal"></span> Personal</div>
+                <div class="cal-item"><span class="cal-dot team"></span> Team</div>
+            </div>
+        </aside>
+
+        <div class="weekly-grid">
+            <div class="day-headers">
+                <div></div>
+                <div class="day-header"><div class="day-name">Mon</div><div class="day-num">6</div></div>
+                <div class="day-header"><div class="day-name">Tue</div><div class="day-num">7</div></div>
+                <div class="day-header today"><div class="day-name">Wed</div><div class="day-num">8</div></div>
+                <div class="day-header"><div class="day-name">Thu</div><div class="day-num">9</div></div>
+                <div class="day-header"><div class="day-name">Fri</div><div class="day-num">10</div></div>
+                <div class="day-header"><div class="day-name">Sat</div><div class="day-num">11</div></div>
+                <div class="day-header"><div class="day-name">Sun</div><div class="day-num">12</div></div>
+            </div>
+
+            <div class="time-grid">
+                <!-- 8 AM row -->
+                <div class="time-label"><span>8 AM</span></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col">
+                    <div class="event blue" style="top:0;height:60px;">
+                        <div class="event-title"><span class="status-dot confirmed"></span>Team Standup</div>
+                        <div class="event-time">8:00 - 8:30</div>
+                    </div>
+                </div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+
+                <!-- 9 AM row -->
+                <div class="time-label"><span>9 AM</span></div>
+                <div class="day-col">
+                    <div class="event blue" style="top:0;height:120px;">
+                        <div class="event-title"><span class="status-dot confirmed"></span>Sprint Planning</div>
+                        <div class="event-time">9:00 - 11:00</div>
+                    </div>
+                </div>
+                <div class="day-col"></div>
+                <div class="day-col">
+                    <div class="event green" style="top:0;height:60px;">
+                        <div class="event-title"><span class="status-dot tentative"></span>Dentist</div>
+                        <div class="event-time">9:00 - 9:30</div>
+                    </div>
+                </div>
+                <div class="day-col"></div>
+                <div class="day-col">
+                    <div class="event orange" style="top:0;height:60px;">
+                        <div class="event-title"><span class="status-dot confirmed"></span>Design Review</div>
+                        <div class="event-time">9:00 - 10:00</div>
+                    </div>
+                </div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+
+                <!-- 10 AM row -->
+                <div class="time-label"><span>10 AM</span></div>
+                <div class="day-col"></div>
+                <div class="day-col">
+                    <div class="event blue" style="top:0;height:60px;">
+                        <div class="event-title"><span class="status-dot confirmed"></span>1:1 with Manager</div>
+                        <div class="event-time">10:00 - 10:30</div>
+                    </div>
+                </div>
+                <div class="day-col"></div>
+                <div class="day-col">
+                    <div class="event red" style="top:0;height:90px;">
+                        <div class="event-title"><span class="status-dot cancelled"></span>Client Call</div>
+                        <div class="event-time">10:00 - 11:30</div>
+                    </div>
+                </div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+
+                <!-- 11 AM row -->
+                <div class="time-label"><span>11 AM</span></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col">
+                    <div class="event green" style="top:0;height:120px;">
+                        <div class="event-title"><span class="status-dot confirmed"></span>Yoga Class</div>
+                        <div class="event-time">11:00 - 1:00</div>
+                    </div>
+                </div>
+                <div class="day-col"></div>
+
+                <!-- 12 PM row -->
+                <div class="time-label"><span>12 PM</span></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col">
+                    <div class="event green" style="top:0;height:60px;">
+                        <div class="event-title"><span class="status-dot confirmed"></span>Lunch w/ Sam</div>
+                        <div class="event-time">12:00 - 1:00</div>
+                    </div>
+                </div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+
+                <!-- 1 PM row -->
+                <div class="time-label"><span>1 PM</span></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col">
+                    <div class="event blue" style="top:0;height:60px;">
+                        <div class="event-title"><span class="status-dot tentative"></span>Tech Talk</div>
+                        <div class="event-time">1:00 - 2:00</div>
+                    </div>
+                </div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+
+                <!-- 2 PM row -->
+                <div class="time-label"><span>2 PM</span></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col">
+                    <div class="event orange" style="top:0;height:90px;">
+                        <div class="event-title"><span class="status-dot confirmed"></span>Workshop: A11y</div>
+                        <div class="event-time">2:00 - 3:30</div>
+                    </div>
+                </div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+                <div class="day-col"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.day-col').forEach(function(col) {
+            col.addEventListener('click', function() {
+                alert('Create new event');
+            });
+        });
+        function prevWeek() {}
+        function nextWeek() {}
+    </script>
+</body>
+</html>

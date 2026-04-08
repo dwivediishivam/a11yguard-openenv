@@ -1,0 +1,15 @@
+{
+  "violations": [
+    {
+      "violation_type": "color_only_indication",
+      "wcag_criterion": "1.4.1",
+      "line_numbers": [44, 48, 52],
+      "description": "Required and optional field status is conveyed only through border color (red for required, green for optional). Users who are colorblind or using monochrome displays cannot distinguish required from optional fields. A text label, icon, or asterisk must accompany the color.",
+      "severity": "serious",
+      "reference_fix": "<label for=\"taskname\">Task name <span aria-hidden=\"true\">*</span><span class=\"sr-only\">(required)</span></label>\n<input type=\"text\" id=\"taskname\" required aria-required=\"true\" placeholder=\"Task name\">"
+    }
+  ],
+  "total_violations": 1,
+  "difficulty": "easy",
+  "page_description": "A project management dashboard with a task creation form. Required and optional fields are distinguished only by border color (red vs green), violating the use-of-color requirement."
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Weather Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea, #764ba2); min-height: 100vh; padding: 40px; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: white; text-align: center; margin-bottom: 30px; font-size: 2rem; }
+        .weather-main { display: flex; align-items: center; gap: 20px; }
+        .temp { font-size: 3rem; font-weight: bold; color: #667eea; }
+        .details { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .detail-item { background: #f8f9fa; padding: 12px; border-radius: 8px; }
+        .detail-item span { display: block; color: #999; font-size: 0.85rem; }
+        .detail-item strong { font-size: 1.1rem; }
+        .forecast { display: flex; justify-content: space-between; text-align: center; }
+        .forecast-day { padding: 10px; }
+        .forecast-day .day { font-weight: bold; margin-bottom: 5px; }
+        .forecast-day .high { color: #e74c3c; }
+        .forecast-day .low { color: #3498db; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Dashboard</h1>
+        <div class="card">
+            <div class="weather-main">
+                <div class="temp">72°F</div>
+                <div>
+                    <div style="font-size:1.2rem;font-weight:bold;">San Francisco</div>
+                    <div style="color:#777;">Partly Cloudy</div>
+                </div>
+            </div>
+            <div class="details">
+                <div class="detail-item">
+                    <span>Humidity</span>
+                    <strong>65%</strong>
+                </div>
+                <div class="detail-item">
+                    <span>Wind</span>
+                    <strong>12 mph NW</strong>
+                </div>
+                <div class="detail-item">
+                    <span>UV Index</span>
+                    <strong>3 (Moderate)</strong>
+                </div>
+                <div class="detail-item">
+                    <span>Visibility</span>
+                    <strong>10 miles</strong>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="margin-bottom:15px;">5-Day Forecast</h2>
+            <div class="forecast">
+                <div class="forecast-day">
+                    <div class="day">Mon</div>
+                    <div class="high">75°</div>
+                    <div class="low">58°</div>
+                </div>
+                <div class="forecast-day">
+                    <div class="day">Tue</div>
+                    <div class="high">70°</div>
+                    <div class="low">55°</div>
+                </div>
+                <div class="forecast-day">
+                    <div class="day">Wed</div>
+                    <div class="high">68°</div>
+                    <div class="low">54°</div>
+                </div>
+                <div class="forecast-day">
+                    <div class="day">Thu</div>
+                    <div class="high">72°</div>
+                    <div class="low">56°</div>
+                </div>
+                <div class="forecast-day">
+                    <div class="day">Fri</div>
+                    <div class="high">74°</div>
+                    <div class="low">57°</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

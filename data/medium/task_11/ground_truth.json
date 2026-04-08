@@ -1,0 +1,23 @@
+{
+  "violations": [
+    {
+      "violation_type": "ambiguous_button_text",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [64, 73, 82],
+      "description": "Multiple 'Book' buttons exist on the page with identical text but different destinations. Screen reader users cannot distinguish between them. Each button needs a unique accessible name.",
+      "severity": "serious",
+      "reference_fix": "<button class=\"book-btn\" aria-label=\"Book flight to Paris, France\">Book</button>"
+    },
+    {
+      "violation_type": "missing_form_label",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [89],
+      "description": "Newsletter email input has no associated label element. Only placeholder text is used, which disappears on focus and is not announced by all screen readers.",
+      "severity": "critical",
+      "reference_fix": "<label for=\"newsletter-email\" class=\"sr-only\">Email address</label>\n<input type=\"email\" id=\"newsletter-email\" placeholder=\"Enter your email\">"
+    }
+  ],
+  "total_violations": 2,
+  "difficulty": "medium",
+  "page_description": "A travel booking website with a search form, destination cards with 'Book' buttons, and a newsletter signup. Multiple identical 'Book' buttons lack unique accessible names, and the newsletter input has no label."
+}

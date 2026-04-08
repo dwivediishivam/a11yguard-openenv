@@ -1,0 +1,47 @@
+{
+  "violations": [
+    {
+      "violation_type": "calendar_grid_no_table_or_grid_role",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [143, 155],
+      "description": "The weekly calendar is built with plain divs using CSS grid layout but has no role='grid' or semantic <table> structure. Screen readers cannot convey the relationship between day headers and time slots, making the calendar structure unintelligible.",
+      "severity": "critical",
+      "reference_fix": "<div class=\"time-grid\" role=\"grid\" aria-label=\"Weekly calendar, April 6 to 12, 2026\">\n  <div role=\"row\">\n    <div role=\"columnheader\">8 AM</div>\n    <div role=\"gridcell\" aria-label=\"Monday April 6, 8 AM\"></div>\n  </div>\n</div>"
+    },
+    {
+      "violation_type": "time_slots_not_interactive",
+      "wcag_criterion": "2.1.1",
+      "line_numbers": [158, 159, 160, 165, 166, 167],
+      "description": "Time slot cells respond to click events to create new events but are plain divs with no tabindex, role='button', or keyboard event handlers. Keyboard users cannot navigate to or activate empty time slots to create events.",
+      "severity": "critical",
+      "reference_fix": "<div class=\"day-col\" role=\"button\" tabindex=\"0\" aria-label=\"Wednesday April 8, 8 AM - click to create event\" onkeydown=\"if(event.key==='Enter')this.click()\">"
+    },
+    {
+      "violation_type": "no_keyboard_navigation_for_dates",
+      "wcag_criterion": "2.1.1",
+      "line_numbers": [108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118],
+      "description": "Mini calendar date cells are plain divs with no tabindex or keyboard event handlers. Users cannot navigate between dates using arrow keys or select a date using Enter/Space. The navigation arrows are also plain spans, not buttons.",
+      "severity": "critical",
+      "reference_fix": "<div class=\"day today\" role=\"button\" tabindex=\"0\" aria-label=\"April 8, 2026, today\" aria-current=\"date\">8</div>"
+    },
+    {
+      "violation_type": "events_lack_full_context",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [161, 170, 173, 184, 190, 203, 216, 225],
+      "description": "Calendar events display a title and time but provide no programmatic context about which day they occur on. A screen reader user encountering 'Team Standup, 8:00-8:30' cannot determine that this event is on Wednesday April 8 without navigating back to find the column header.",
+      "severity": "serious",
+      "reference_fix": "<div class=\"event blue\" role=\"button\" aria-label=\"Team Standup, Wednesday April 8, 8:00 to 8:30 AM, confirmed\">"
+    },
+    {
+      "violation_type": "color_only_status_indicators",
+      "wcag_criterion": "1.4.1",
+      "line_numbers": [162, 171, 174, 185, 191, 204, 217, 226],
+      "description": "Event status (confirmed, tentative, cancelled) is conveyed only through colored dots (green, yellow, red) with no text label, icon alternative, or aria-label. Users who cannot perceive color cannot determine the status of any event.",
+      "severity": "serious",
+      "reference_fix": "<span class=\"status-dot confirmed\" aria-hidden=\"true\"></span><span class=\"sr-only\">Confirmed</span>"
+    }
+  ],
+  "total_violations": 5,
+  "difficulty": "hard",
+  "page_description": "A calendar scheduling application with a weekly grid view, mini calendar sidebar, time slots from 8 AM to 2 PM with various events, and status indicators. Issues include the calendar grid lacking table/grid semantics, time slots not being keyboard-interactive, mini calendar dates having no keyboard support, events missing day context, and color-only status indicators."
+}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank - Transfer Funds</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; color: #2c3e50; }
+        header { background: #1a3a5c; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.2rem; font-weight: 600; }
+        header .user-info { font-size: 0.85rem; opacity: 0.8; }
+        .breadcrumb { padding: 12px 30px; background: white; border-bottom: 1px solid #e0e6ed; font-size: 0.85rem; color: #7f8c9b; }
+        .breadcrumb a { color: #2e86de; text-decoration: none; }
+        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        .page-title { font-size: 1.5rem; margin-bottom: 25px; }
+        .transfer-card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 25px; }
+        .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 18px; color: #1a3a5c; }
+        .account-selector { margin-bottom: 25px; }
+        .custom-dropdown { position: relative; border: 1px solid #d0d7de; border-radius: 8px; padding: 14px 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: white; }
+        .custom-dropdown:hover { border-color: #2e86de; }
+        .custom-dropdown .arrow { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #7f8c9b; }
+        .dropdown-options { display: none; position: absolute; top: 100%; left: -1px; right: -1px; background: white; border: 1px solid #d0d7de; border-top: none; border-radius: 0 0 8px 8px; z-index: 10; }
+        .dropdown-options.open { display: block; }
+        .dropdown-option { padding: 12px 16px; cursor: pointer; }
+        .dropdown-option:hover { background: #f0f6ff; }
+        .account-label { font-weight: 600; font-size: 0.95rem; }
+        .account-number { color: #7f8c9b; font-size: 0.85rem; }
+        .account-balance { font-weight: 600; color: #27ae60; }
+        .balance-display { text-align: right; margin-top: 8px; font-size: 0.9rem; color: #7f8c9b; }
+        .balance-display .amount { font-size: 1.2rem; font-weight: bold; color: #2c3e50; }
+        .form-row { margin-bottom: 20px; }
+        .form-row label { display: block; font-size: 0.85rem; font-weight: 600; color: #4a5568; margin-bottom: 6px; }
+        .form-row input,
+        .form-row textarea { width: 100%; padding: 12px 14px; border: 1px solid #d0d7de; border-radius: 8px; font-size: 0.95rem; font-family: inherit; }
+        .form-row input:focus,
+        .form-row textarea:focus { outline: none; border-color: #2e86de; box-shadow: 0 0 0 3px rgba(46,134,222,0.1); }
+        .amount-input-group { display: flex; align-items: center; border: 1px solid #d0d7de; border-radius: 8px; overflow: hidden; }
+        .amount-input-group .currency { padding: 12px 14px; background: #f5f7fa; font-weight: 600; color: #4a5568; border-right: 1px solid #d0d7de; }
+        .amount-input-group input { border: none; border-radius: 0; }
+        .amount-input-group input:focus { box-shadow: none; }
+        .error-message { color: #e74c3c; font-size: 0.8rem; margin-top: 5px; display: none; }
+        .error-message.visible { display: block; }
+        .schedule-row { display: flex; gap: 15px; }
+        .schedule-row .form-row { flex: 1; }
+        .summary-box { background: #f8fafc; border-radius: 8px; padding: 20px; margin-bottom: 25px; }
+        .summary-line { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.9rem; }
+        .summary-line.total { border-top: 2px solid #e0e6ed; font-weight: bold; font-size: 1rem; padding-top: 12px; margin-top: 4px; }
+        .actions { display: flex; gap: 12px; justify-content: flex-end; }
+        .btn { padding: 12px 30px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border: none; }
+        .btn-cancel { background: #f0f3f5; color: #4a5568; }
+        .btn-transfer { background: #2e86de; color: white; }
+        .btn-transfer:hover { background: #2475c5; }
+        .alert-bar { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; font-size: 0.85rem; color: #856404; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SecureBank Online</h1>
+        <span class="user-info">Welcome, Alex Thompson</span>
+    </header>
+    <div class="breadcrumb">
+        <a href="#">Dashboard</a> &gt; <a href="#">Transfers</a> &gt; New Transfer
+    </div>
+
+    <div class="container">
+        <h2 class="page-title">Transfer Funds</h2>
+
+        <div class="alert-bar">
+            Daily transfer limit: $10,000. You have $7,450 remaining today.
+        </div>
+
+        <form>
+            <div class="transfer-card">
+                <h3 class="section-title">From Account</h3>
+                <div class="account-selector">
+                    <div class="custom-dropdown" onclick="toggleDropdown(this)">
+                        <div>
+                            <div class="account-label">Primary Checking</div>
+                            <div class="account-number">****4829</div>
+                        </div>
+                        <span class="arrow"></span>
+                    </div>
+                    <div class="dropdown-options">
+                        <div class="dropdown-option" onclick="selectAccount(this, 'checking')">
+                            <div class="account-label">Primary Checking</div>
+                            <div class="account-number">****4829</div>
+                            <div class="account-balance">$12,458.32</div>
+                        </div>
+                        <div class="dropdown-option" onclick="selectAccount(this, 'savings')">
+                            <div class="account-label">High-Yield Savings</div>
+                            <div class="account-number">****7201</div>
+                            <div class="account-balance">$34,891.05</div>
+                        </div>
+                        <div class="dropdown-option" onclick="selectAccount(this, 'money-market')">
+                            <div class="account-label">Money Market</div>
+                            <div class="account-number">****1556</div>
+                            <div class="account-balance">$8,230.00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="balance-display">
+                    Available balance: <span class="amount" id="live-balance">$12,458.32</span>
+                </div>
+            </div>
+
+            <div class="transfer-card">
+                <h3 class="section-title">Transfer Details</h3>
+
+                <div class="form-row">
+                    <label for="recipient">Recipient Name</label>
+                    <input type="text" id="recipient" placeholder="Enter recipient's full name">
+                </div>
+
+                <div class="form-row">
+                    <label for="account-num">Account Number</label>
+                    <input type="text" id="account-num" placeholder="Enter account number">
+                    <div class="error-message">Please enter a valid account number</div>
+                </div>
+
+                <div class="form-row">
+                    <label for="routing">Routing Number</label>
+                    <input type="text" id="routing" placeholder="9-digit routing number">
+                    <div class="error-message">Invalid routing number format</div>
+                </div>
+
+                <div class="form-row">
+                    <label>Transfer Amount</label>
+                    <div class="amount-input-group">
+                        <span class="currency">USD $</span>
+                        <input type="text" id="amount" placeholder="0.00">
+                    </div>
+                    <div class="error-message">Amount exceeds available balance</div>
+                </div>
+
+                <div class="schedule-row">
+                    <div class="form-row">
+                        <label for="transfer-date">Transfer Date</label>
+                        <input type="date" id="transfer-date">
+                    </div>
+                    <div class="form-row">
+                        <label for="frequency">Frequency</label>
+                        <select id="frequency" style="width:100%;padding:12px 14px;border:1px solid #d0d7de;border-radius:8px;font-size:0.95rem;font-family:inherit;">
+                            <option>One-time</option>
+                            <option>Weekly</option>
+                            <option>Bi-weekly</option>
+                            <option>Monthly</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="memo">Memo (Optional)</label>
+                    <textarea id="memo" rows="2" placeholder="Add a note for this transfer"></textarea>
+                </div>
+            </div>
+
+            <div class="transfer-card">
+                <h3 class="section-title">Transfer Summary</h3>
+                <div class="summary-box">
+                    <div class="summary-line">
+                        <span>From</span>
+                        <span>Primary Checking (****4829)</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>To</span>
+                        <span>-</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Amount</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Transfer Fee</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total</span>
+                        <span>$0.00</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="button" class="btn btn-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-transfer">Transfer Funds</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function toggleDropdown(el) {
+            var options = el.nextElementSibling;
+            options.classList.toggle('open');
+        }
+        function selectAccount(option, type) {
+            var balance = option.querySelector('.account-balance').textContent;
+            document.getElementById('live-balance').textContent = balance;
+            option.closest('.dropdown-options').classList.remove('open');
+        }
+    </script>
+</body>
+</html>

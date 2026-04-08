@@ -1,0 +1,15 @@
+{
+  "violations": [
+    {
+      "violation_type": "autoplay_video_no_controls",
+      "wcag_criterion": "1.4.2",
+      "line_numbers": [37],
+      "description": "Video element has autoplay attribute but no controls attribute. Users cannot pause, stop, or control the volume of the auto-playing media. This is disorienting for screen reader users and problematic for users with cognitive disabilities.",
+      "severity": "critical",
+      "reference_fix": "<video width=\"700\" controls>\n    <source src=\"trailer.mp4\" type=\"video/mp4\">\n    Your browser does not support the video tag.\n</video>"
+    }
+  ],
+  "total_violations": 1,
+  "difficulty": "easy",
+  "page_description": "A video streaming landing page featuring a hero section and trailer. The video element autoplays without providing user controls to pause or stop."
+}

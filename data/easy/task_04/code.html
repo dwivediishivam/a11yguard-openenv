@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnCode - Online Courses</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; color: #333; }
+        header { background: #2d3436; color: white; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.4rem; }
+        .nav-links a { color: #ddd; text-decoration: none; margin-left: 20px; }
+        main { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        h2 { margin-bottom: 20px; }
+        .courses { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .course-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .course-card .thumb { height: 140px; background: #6c5ce7; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; }
+        .course-card .info { padding: 18px; }
+        .course-card .info h3 { margin-bottom: 8px; font-size: 1.1rem; }
+        .course-card .info p { color: #777; font-size: 0.9rem; margin-bottom: 12px; }
+        .course-card .info .price { font-weight: bold; color: #6c5ce7; }
+        .cta { text-align: center; margin-top: 40px; }
+        .cta p { margin-bottom: 15px; color: #555; }
+        .cta a { color: #6c5ce7; font-weight: bold; }
+        footer { text-align: center; padding: 30px; color: #aaa; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LearnCode</h1>
+        <nav class="nav-links">
+            <a href="/courses">Courses</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/about">About</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Popular Courses</h2>
+        <div class="courses">
+            <div class="course-card">
+                <div class="thumb">Python 101</div>
+                <div class="info">
+                    <h3>Python for Beginners</h3>
+                    <p>Learn Python from scratch with hands-on projects and exercises.</p>
+                    <span class="price">$29.99</span>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="thumb" style="background:#00b894;">Web Dev</div>
+                <div class="info">
+                    <h3>Full-Stack Web Development</h3>
+                    <p>Master HTML, CSS, JavaScript, React, and Node.js.</p>
+                    <span class="price">$49.99</span>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="thumb" style="background:#fd79a8;">ML Basics</div>
+                <div class="info">
+                    <h3>Machine Learning Fundamentals</h3>
+                    <p>Understand core ML algorithms and build real models.</p>
+                    <span class="price">$39.99</span>
+                </div>
+            </div>
+        </div>
+        <div class="cta">
+            <p>Ready to start your coding journey?</p>
+            <a href="/signup">Click here</a> to get started or <a href="/catalog">click here</a> to browse all courses.
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 LearnCode. All rights reserved.</p>
+    </footer>
+</body>
+</html>

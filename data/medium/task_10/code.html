@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocHub - Documentation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #333; }
+        .top-nav { background: #2d3436; padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .top-nav h1 { color: white; font-size: 1.2rem; }
+        .top-nav a { color: #b2bec3; text-decoration: none; margin-left: 15px; font-size: 0.9rem; }
+        .layout { display: flex; }
+        .side-nav { width: 250px; border-right: 1px solid #eee; padding: 25px 20px; min-height: calc(100vh - 48px); }
+        .side-nav h3 { font-size: 0.8rem; text-transform: uppercase; color: #888; margin-bottom: 10px; margin-top: 20px; }
+        .side-nav h3:first-child { margin-top: 0; }
+        .side-nav a { display: block; color: #555; text-decoration: none; padding: 6px 0; font-size: 0.9rem; }
+        .side-nav a:hover { color: #0984e3; }
+        .content { flex: 1; padding: 30px 40px; max-width: 750px; }
+        .content h2 { font-size: 1.6rem; margin-bottom: 10px; }
+        .content .updated { color: #aaa; font-size: 0.85rem; margin-bottom: 25px; }
+        .content p { line-height: 1.8; margin-bottom: 15px; }
+        .content h3 { margin: 25px 0 10px; }
+        .content code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace; font-size: 0.9rem; }
+        .code-block { background: #2d3436; color: #dfe6e9; padding: 20px; border-radius: 8px; margin: 15px 0; overflow-x: auto; font-family: 'Fira Code', monospace; font-size: 0.85rem; line-height: 1.6; }
+        .faq-item { border: 1px solid #eee; border-radius: 6px; margin-bottom: 10px; }
+        .faq-question { padding: 15px 20px; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question:hover { background: #f8f9fa; }
+        .faq-answer { padding: 0 20px 15px; color: #555; line-height: 1.7; display: none; }
+        footer { border-top: 1px solid #eee; padding: 20px 30px; text-align: center; color: #aaa; }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <h1>DocHub</h1>
+        <div>
+            <a href="/docs">Docs</a>
+            <a href="/api">API Reference</a>
+            <a href="/changelog">Changelog</a>
+        </div>
+    </div>
+    <div class="layout">
+        <div class="side-nav">
+            <h3>Getting Started</h3>
+            <a href="/docs/install">Installation</a>
+            <a href="/docs/quickstart">Quick Start</a>
+            <a href="/docs/config">Configuration</a>
+            <h3>Core Concepts</h3>
+            <a href="/docs/auth">Authentication</a>
+            <a href="/docs/models">Data Models</a>
+            <a href="/docs/queries">Queries</a>
+            <h3>Advanced</h3>
+            <a href="/docs/plugins">Plugins</a>
+            <a href="/docs/migration">Migration</a>
+        </div>
+        <div class="content">
+            <h2>Installation Guide</h2>
+            <p class="updated">Last updated: March 15, 2025</p>
+            <p>This guide walks you through installing DocHub SDK in your project. The SDK supports Node.js 18+ and Python 3.10+.</p>
+
+            <h3>Prerequisites</h3>
+            <p>Make sure you have <code>node</code> version 18 or higher installed. You can verify with:</p>
+            <div class="code-block">$ node --version<br>v18.17.0</div>
+
+            <h3>Install via npm</h3>
+            <p>Run the following command in your project directory:</p>
+            <div class="code-block">$ npm install @dochub/sdk</div>
+
+            <h3>FAQ</h3>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I use DocHub with TypeScript?</span>
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">Yes! DocHub SDK ships with full TypeScript type definitions. No additional @types package needed.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What Node.js versions are supported?</span>
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">DocHub SDK requires Node.js 18 or higher. LTS versions are recommended for production use.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is there a Python SDK?</span>
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">Yes, install it with: pip install dochub-sdk. Python 3.10+ is required.</div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 DocHub</p>
+    </footer>
+</body>
+</html>

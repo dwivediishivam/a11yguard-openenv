@@ -1,0 +1,15 @@
+{
+  "violations": [
+    {
+      "violation_type": "interactive_div_not_button",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [43, 44, 45, 46, 47],
+      "description": "Filter elements use <div> instead of <button> for interactive controls. Divs are not focusable via keyboard and have no implicit button role, making them inaccessible to keyboard and screen reader users.",
+      "severity": "critical",
+      "reference_fix": "<button class=\"filter-btn active\">All</button>\n<button class=\"filter-btn\">Italian</button>\n<button class=\"filter-btn\">Japanese</button>\n<button class=\"filter-btn\">Mexican</button>\n<button class=\"filter-btn\">Indian</button>"
+    }
+  ],
+  "total_violations": 1,
+  "difficulty": "easy",
+  "page_description": "A restaurant search page with category filters. The filter controls are <div> elements styled as buttons but lack proper button semantics and keyboard accessibility."
+}

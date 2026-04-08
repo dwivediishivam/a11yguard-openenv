@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MealKit - Order Your Box</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; color: #333; }
+        header { background: #e17055; color: white; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.5rem; }
+        header nav a { color: white; text-decoration: none; margin-left: 20px; }
+        .steps-indicator { background: white; padding: 20px 40px; border-bottom: 1px solid #eee; display: flex; justify-content: center; gap: 50px; }
+        .step { text-align: center; color: #ccc; }
+        .step.active { color: #e17055; }
+        .step.done { color: #27ae60; }
+        .step-num { width: 30px; height: 30px; border-radius: 50%; border: 2px solid currentColor; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; font-weight: bold; }
+        .step-label { font-size: 0.8rem; }
+        main { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        h2 { margin-bottom: 20px; }
+        .meal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .meal-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .meal-card .img { height: 180px; background: #ffeaa7; display: flex; align-items: center; justify-content: center; color: #999; position: relative; }
+        .meal-card .badge { position: absolute; top: 10px; right: 10px; background: #e17055; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; }
+        .meal-card .info { padding: 18px; }
+        .meal-card h3 { margin-bottom: 5px; }
+        .meal-card .tags { color: #888; font-size: 0.85rem; margin-bottom: 10px; }
+        .meal-card .nutrition { display: flex; gap: 15px; font-size: 0.8rem; color: #aaa; margin-bottom: 12px; }
+        .meal-card .select-row { display: flex; justify-content: space-between; align-items: center; }
+        .quantity { display: flex; align-items: center; gap: 10px; }
+        .quantity button { width: 30px; height: 30px; border: 1px solid #ddd; background: white; border-radius: 50%; cursor: pointer; font-size: 1rem; }
+        .quantity span { font-weight: bold; }
+        .add-btn { background: #e17055; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; }
+        .dietary-filters { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .dietary-filters h3 { margin-bottom: 12px; }
+        .filter-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .filter-tag { padding: 6px 14px; border: 1px solid #ddd; border-radius: 20px; cursor: pointer; font-size: 0.85rem; background: white; }
+        .filter-tag.selected { background: #e17055; color: white; border-color: #e17055; }
+        .order-summary { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: sticky; top: 20px; }
+        .order-summary h3 { margin-bottom: 15px; }
+        .summary-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
+        .summary-total { display: flex; justify-content: space-between; padding-top: 12px; font-weight: bold; font-size: 1.1rem; }
+        .checkout-btn { width: 100%; background: #e17055; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-top: 15px; }
+        .allergen-warning { background: #fff3cd; padding: 12px 15px; border-radius: 6px; margin-top: 15px; font-size: 0.85rem; color: #856404; }
+        footer { text-align: center; padding: 30px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MealKit</h1>
+        <nav>
+            <a href="/menu">Menu</a>
+            <a href="/plans">Plans</a>
+            <a href="/account">Account</a>
+        </nav>
+    </header>
+    <div class="steps-indicator">
+        <div class="step done">
+            <div class="step-num">✓</div>
+            <div class="step-label">Choose Plan</div>
+        </div>
+        <div class="step active">
+            <div class="step-num">2</div>
+            <div class="step-label">Select Meals</div>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-label">Checkout</div>
+        </div>
+    </div>
+    <main>
+        <h2>Select Your Meals</h2>
+        <div class="dietary-filters">
+            <h3>Dietary Preferences</h3>
+            <div class="filter-tags">
+                <div class="filter-tag selected">All</div>
+                <div class="filter-tag">Vegetarian</div>
+                <div class="filter-tag">Vegan</div>
+                <div class="filter-tag">Gluten-Free</div>
+                <div class="filter-tag">Keto</div>
+                <div class="filter-tag">Dairy-Free</div>
+            </div>
+        </div>
+        <div class="meal-grid">
+            <div class="meal-card">
+                <div class="img">
+                    Meal Photo
+                    <span class="badge">Popular</span>
+                </div>
+                <div class="info">
+                    <h3>Herb-Crusted Salmon</h3>
+                    <p class="tags">Fish · Gluten-Free · 30 min</p>
+                    <div class="nutrition">
+                        <span>520 cal</span>
+                        <span>35g protein</span>
+                        <span>18g fat</span>
+                    </div>
+                    <div class="select-row">
+                        <div class="quantity">
+                            <button>−</button>
+                            <span>0</span>
+                            <button>+</button>
+                        </div>
+                        <button class="add-btn">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="meal-card">
+                <div class="img" style="background:#a8e6cf;">
+                    Meal Photo
+                    <span class="badge">New</span>
+                </div>
+                <div class="info">
+                    <h3>Thai Basil Tofu Bowl</h3>
+                    <p class="tags">Vegan · Dairy-Free · 25 min</p>
+                    <div class="nutrition">
+                        <span>380 cal</span>
+                        <span>22g protein</span>
+                        <span>12g fat</span>
+                    </div>
+                    <div class="select-row">
+                        <div class="quantity">
+                            <button>−</button>
+                            <span>0</span>
+                            <button>+</button>
+                        </div>
+                        <button class="add-btn">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="meal-card">
+                <div class="img" style="background:#fab1a0;">
+                    Meal Photo
+                </div>
+                <div class="info">
+                    <h3>BBQ Chicken Flatbread</h3>
+                    <p class="tags">Poultry · 20 min</p>
+                    <div class="nutrition">
+                        <span>610 cal</span>
+                        <span>38g protein</span>
+                        <span>22g fat</span>
+                    </div>
+                    <div class="select-row">
+                        <div class="quantity">
+                            <button>−</button>
+                            <span>0</span>
+                            <button>+</button>
+                        </div>
+                        <button class="add-btn">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="meal-card">
+                <div class="img" style="background:#dfe6e9;">
+                    Meal Photo
+                </div>
+                <div class="info">
+                    <h3>Mushroom Risotto</h3>
+                    <p class="tags">Vegetarian · 35 min</p>
+                    <div class="nutrition">
+                        <span>450 cal</span>
+                        <span>14g protein</span>
+                        <span>16g fat</span>
+                    </div>
+                    <div class="select-row">
+                        <div class="quantity">
+                            <button>−</button>
+                            <span>0</span>
+                            <button>+</button>
+                        </div>
+                        <button class="add-btn">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="order-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-item">
+                <span>Family Plan (4 servings)</span>
+                <span>$79.96</span>
+            </div>
+            <div class="summary-item">
+                <span>Delivery</span>
+                <span>Free</span>
+            </div>
+            <div class="summary-total">
+                <span>Total</span>
+                <span>$79.96</span>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+            <div class="allergen-warning">
+                ⚠️ Contains: Fish, Soy, Dairy, Gluten. Please review allergen info before ordering.
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 MealKit</p>
+    </footer>
+</body>
+</html>

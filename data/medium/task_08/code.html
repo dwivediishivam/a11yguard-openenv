@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsWire - Breaking Stories</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Georgia, serif; background: #fff; color: #222; }
+        header { padding: 20px 40px; border-bottom: 2px solid #222; }
+        header h1 { font-size: 2rem; text-align: center; }
+        .ticker { background: #e74c3c; color: white; padding: 10px 40px; font-size: 0.9rem; overflow: hidden; }
+        .ticker span { animation: scroll 20s linear infinite; display: inline-block; white-space: nowrap; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        main { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        .featured { margin-bottom: 30px; }
+        .featured h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .featured .byline { color: #888; margin-bottom: 15px; }
+        .featured p { line-height: 1.8; margin-bottom: 12px; }
+        .stories { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .story-card { border: 1px solid #eee; padding: 20px; border-radius: 6px; }
+        .story-card h3 { margin-bottom: 8px; }
+        .story-card p { color: #666; font-size: 0.9rem; line-height: 1.6; }
+        .story-card .read-more { display: inline-block; margin-top: 10px; color: #e74c3c; text-decoration: none; }
+        .sidebar-ad { background: #f9f9f9; border: 1px solid #eee; padding: 20px; text-align: center; margin: 30px 0; border-radius: 6px; }
+        .sidebar-ad img { width: 100%; max-width: 300px; }
+        footer { text-align: center; padding: 30px; color: #aaa; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>NewsWire</h1>
+    </header>
+    <div class="ticker">
+        <span>BREAKING: Markets surge 3% after Fed announcement | New climate agreement signed by 40 nations | Tech giant announces record quarterly earnings | Olympics 2028 preparations ahead of schedule</span>
+    </div>
+    <main>
+        <div class="featured">
+            <h2>Global Climate Summit Reaches Historic Agreement</h2>
+            <p class="byline">By Maria Gonzalez · International Correspondent · 2 hours ago</p>
+            <p>In a landmark decision, representatives from over 40 nations agreed to a comprehensive climate action plan that commits to reducing global carbon emissions by 50% before 2035.</p>
+            <p>The agreement, reached after intense negotiations in Geneva, includes provisions for carbon pricing, renewable energy investment, and financial support for developing nations transitioning away from fossil fuels.</p>
+        </div>
+        <div class="stories">
+            <div class="story-card">
+                <h3>Tech Earnings Exceed Expectations</h3>
+                <p>Major technology companies report better-than-expected quarterly results, driven by AI-related revenue growth.</p>
+                <a href="/story/1" class="read-more">Read more →</a>
+            </div>
+            <div class="story-card">
+                <h3>New Study Links Exercise to Longevity</h3>
+                <p>A 20-year longitudinal study finds that moderate daily exercise can add up to 7 years of healthy life expectancy.</p>
+                <a href="/story/2" class="read-more">Read more →</a>
+            </div>
+            <div class="story-card">
+                <h3>Space Tourism Market Grows</h3>
+                <p>Commercial space flights become more accessible as costs drop below $100K per seat for the first time.</p>
+                <a href="/story/3" class="read-more">Read more →</a>
+            </div>
+            <div class="story-card">
+                <h3>AI in Education Shows Promise</h3>
+                <p>School districts piloting AI tutoring programs report 30% improvement in student test scores across all subjects.</p>
+                <a href="/story/4" class="read-more">Read more →</a>
+            </div>
+        </div>
+        <div class="sidebar-ad">
+            <img src="https://via.placeholder.com/300x100/f9f9f9/aaa?text=Advertisement">
+            <p>Your ad here</p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 NewsWire Media Group</p>
+    </footer>
+</body>
+</html>

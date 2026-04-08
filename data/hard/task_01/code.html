@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopLux - Premium Fashion</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        body { font-family: 'Helvetica Neue', sans-serif; background: #fff; color: #333; }
+        .announcement { background: #1a1a1a; color: #ccc; text-align: center; padding: 8px; font-size: 0.8rem; }
+        header { padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
+        header h1 { font-size: 1.8rem; font-weight: 300; letter-spacing: 5px; text-transform: uppercase; }
+        .header-icons { display: flex; gap: 20px; }
+        .header-icons a { color: #333; text-decoration: none; font-size: 1.2rem; }
+        .mega-nav { background: #fafafa; padding: 12px 40px; border-bottom: 1px solid #eee; }
+        .mega-nav div { display: inline-block; margin-right: 30px; cursor: pointer; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: #555; }
+        .mega-nav div:hover { color: #000; }
+        .hero { height: 500px; background: #f0ece3; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-content h2 { font-size: 3rem; font-weight: 300; margin-bottom: 15px; }
+        .hero-content p { color: #888; font-size: 1.1rem; margin-bottom: 25px; }
+        .hero-content a { display: inline-block; background: #1a1a1a; color: white; padding: 14px 40px; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; }
+        main { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+        .section-title { text-align: center; font-size: 1.8rem; font-weight: 300; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 3px; }
+        .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .product { cursor: pointer; }
+        .product .img { height: 320px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; color: #ccc; margin-bottom: 12px; position: relative; }
+        .product .img .quick-view { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.7); color: white; text-align: center; padding: 10px; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s; }
+        .product:hover .quick-view { opacity: 1; }
+        .product h3 { font-size: 0.95rem; font-weight: 400; margin-bottom: 5px; }
+        .product .price { color: #888; }
+        .product .colors { display: flex; gap: 5px; margin-top: 8px; }
+        .product .color-dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid #ddd; cursor: pointer; }
+        .newsletter-section { background: #1a1a1a; color: white; padding: 60px 40px; text-align: center; margin-top: 60px; }
+        .newsletter-section h3 { font-size: 1.5rem; font-weight: 300; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        .newsletter-section p { color: #888; margin-bottom: 20px; }
+        .newsletter-section form { display: flex; gap: 0; max-width: 400px; margin: 0 auto; }
+        .newsletter-section input { flex: 1; padding: 12px 15px; border: 1px solid #444; background: transparent; color: white; font-size: 0.9rem; }
+        .newsletter-section input::placeholder { color: #666; }
+        .newsletter-section button { background: white; color: #1a1a1a; border: none; padding: 12px 25px; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; }
+        footer { padding: 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; border-top: 1px solid #eee; }
+        footer h4 { margin-bottom: 15px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+        footer a { display: block; color: #888; text-decoration: none; margin-bottom: 8px; font-size: 0.9rem; }
+        .copyright { text-align: center; padding: 20px; color: #ccc; font-size: 0.8rem; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <div class="announcement">FREE SHIPPING ON ORDERS OVER $100 | USE CODE: SPRING25</div>
+    <header>
+        <h1>ShopLux</h1>
+        <div class="header-icons">
+            <a href="/search">🔍</a>
+            <a href="/account">👤</a>
+            <a href="/wishlist">♡</a>
+            <a href="/cart">🛒</a>
+        </div>
+    </header>
+    <div class="mega-nav">
+        <div>New Arrivals</div>
+        <div>Women</div>
+        <div>Men</div>
+        <div>Accessories</div>
+        <div>Sale</div>
+    </div>
+    <div class="hero">
+        <div class="hero-content">
+            <h2>Spring Collection 2025</h2>
+            <p>Discover timeless elegance for the new season</p>
+            <a href="/collection/spring">Shop Now</a>
+        </div>
+    </div>
+    <main>
+        <h2 class="section-title">Trending Now</h2>
+        <div class="products">
+            <div class="product">
+                <div class="img">
+                    Product Image
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <h3>Cashmere Blend Sweater</h3>
+                <p class="price">$189.00</p>
+                <div class="colors">
+                    <div class="color-dot" style="background:#2c3e50;" title="Navy"></div>
+                    <div class="color-dot" style="background:#c0392b;" title="Burgundy"></div>
+                    <div class="color-dot" style="background:#f5f5dc;" title="Cream"></div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="img">
+                    Product Image
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <h3>Tailored Wool Blazer</h3>
+                <p class="price">$295.00</p>
+                <div class="colors">
+                    <div class="color-dot" style="background:#333;" title="Charcoal"></div>
+                    <div class="color-dot" style="background:#8b7355;" title="Camel"></div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="img">
+                    Product Image
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <h3>Silk Midi Dress</h3>
+                <p class="price">$245.00</p>
+                <div class="colors">
+                    <div class="color-dot" style="background:#1a1a1a;" title="Black"></div>
+                    <div class="color-dot" style="background:#8b0000;" title="Wine"></div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="img">
+                    Product Image
+                    <div class="quick-view">Quick View</div>
+                </div>
+                <h3>Leather Weekend Bag</h3>
+                <p class="price">$395.00</p>
+                <div class="colors">
+                    <div class="color-dot" style="background:#8b4513;" title="Brown"></div>
+                    <div class="color-dot" style="background:#1a1a1a;" title="Black"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="newsletter-section">
+        <h3>Join the Club</h3>
+        <p>Get exclusive access to new arrivals and special offers</p>
+        <form>
+            <input type="email" placeholder="Your email address">
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+    <footer>
+        <div>
+            <h4>Shop</h4>
+            <a href="/women">Women</a>
+            <a href="/men">Men</a>
+            <a href="/accessories">Accessories</a>
+            <a href="/sale">Sale</a>
+        </div>
+        <div>
+            <h4>Help</h4>
+            <a href="/faq">FAQ</a>
+            <a href="/shipping">Shipping</a>
+            <a href="/returns">Returns</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div>
+            <h4>About</h4>
+            <a href="/about">Our Story</a>
+            <a href="/sustainability">Sustainability</a>
+            <a href="/careers">Careers</a>
+        </div>
+        <div>
+            <h4>Follow Us</h4>
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+            <a href="#">Twitter</a>
+        </div>
+    </footer>
+    <div class="copyright">&copy; 2025 ShopLux. All rights reserved.</div>
+</body>
+</html>

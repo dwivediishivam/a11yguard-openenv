@@ -1,0 +1,31 @@
+{
+  "violations": [
+    {
+      "violation_type": "insufficient_color_contrast",
+      "wcag_criterion": "1.4.3",
+      "line_numbers": [20],
+      "description": "The stat card label text uses color #888 on a #16213e background. The contrast ratio is approximately 2.7:1, which fails the WCAG AA minimum of 4.5:1 for normal text.",
+      "severity": "serious",
+      "reference_fix": ".stat-card .label { color: #b0b0c0; font-size: 0.85rem; margin-bottom: 8px; }"
+    },
+    {
+      "violation_type": "focus_indicator_removed",
+      "wcag_criterion": "2.4.7",
+      "line_numbers": [15],
+      "description": "CSS rule removes focus outlines from all interactive elements (links, buttons, inputs). Keyboard users cannot see which element is currently focused.",
+      "severity": "critical",
+      "reference_fix": "a:focus, button:focus, input:focus { outline: 2px solid #7c83ff; outline-offset: 2px; }"
+    },
+    {
+      "violation_type": "insufficient_color_contrast",
+      "wcag_criterion": "1.4.3",
+      "line_numbers": [30],
+      "description": "Transaction category text uses color #666688 on #16213e background. Contrast ratio is approximately 2.3:1, failing WCAG AA minimum of 4.5:1.",
+      "severity": "serious",
+      "reference_fix": ".tx-category { color: #9999bb; font-size: 0.85rem; }"
+    }
+  ],
+  "total_violations": 3,
+  "difficulty": "medium",
+  "page_description": "A personal finance dashboard with dark theme showing balance stats and recent transactions. Has low-contrast text colors and removed focus indicators."
+}

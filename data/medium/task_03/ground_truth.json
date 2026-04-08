@@ -1,0 +1,23 @@
+{
+  "violations": [
+    {
+      "violation_type": "table_headers_using_td",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [39, 40, 41, 42, 43, 44],
+      "description": "Table header row uses <td> elements styled to look like headers instead of proper <th> elements. Screen readers cannot identify column headers, making the data table incomprehensible to assistive technology users.",
+      "severity": "critical",
+      "reference_fix": "<thead><tr><th scope=\"col\">Course</th><th scope=\"col\">Instructor</th><th scope=\"col\">Credits</th><th scope=\"col\">Midterm</th><th scope=\"col\">Final</th><th scope=\"col\">Grade</th></tr></thead>"
+    },
+    {
+      "violation_type": "table_missing_caption",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [38],
+      "description": "Data table has no <caption> element to provide an accessible description of the table's purpose and content.",
+      "severity": "serious",
+      "reference_fix": "<table class=\"grade-table\">\n<caption>Fall 2025 Semester Grade Report</caption>"
+    }
+  ],
+  "total_violations": 2,
+  "difficulty": "medium",
+  "page_description": "A student grade report page showing a data table of courses and grades. The table header row uses styled <td> elements instead of <th> and has no caption."
+}

@@ -1,0 +1,31 @@
+{
+  "violations": [
+    {
+      "violation_type": "modal_missing_role",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [75],
+      "description": "Modal dialog element has no role='dialog' attribute. Screen readers will not announce it as a dialog.",
+      "severity": "critical",
+      "reference_fix": "<div class=\"modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modal-title\">"
+    },
+    {
+      "violation_type": "modal_missing_aria_modal",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [75],
+      "description": "Modal lacks aria-modal='true' attribute. Screen readers may allow users to interact with background content while the modal is open.",
+      "severity": "serious",
+      "reference_fix": "<div class=\"modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modal-title\">"
+    },
+    {
+      "violation_type": "modal_missing_aria_labelledby",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [75],
+      "description": "Modal dialog has no aria-labelledby pointing to its heading. Screen readers cannot announce the modal's title when it opens.",
+      "severity": "serious",
+      "reference_fix": "<div class=\"modal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modal-title\">\n<h3 id=\"modal-title\">Added to Cart!</h3>"
+    }
+  ],
+  "total_violations": 3,
+  "difficulty": "medium",
+  "page_description": "An e-commerce product page with a modal dialog that appears when clicking 'Add to Cart'. The modal lacks role='dialog', aria-modal, and aria-labelledby attributes."
+}

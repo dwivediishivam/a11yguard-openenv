@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub - Conference Registration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; color: #333; }
+        header { background: #6c5ce7; color: white; padding: 20px 40px; }
+        header h1 { font-size: 1.5rem; }
+        main { max-width: 650px; margin: 30px auto; padding: 0 20px; }
+        .reg-form { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .reg-form h2 { margin-bottom: 5px; }
+        .reg-form .sub { color: #888; margin-bottom: 25px; }
+        .field { margin-bottom: 16px; }
+        .field input, .field select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .field input::placeholder { color: #bbb; }
+        button { background: #6c5ce7; color: white; border: none; padding: 12px 30px; border-radius: 6px; font-size: 1rem; cursor: pointer; width: 100%; }
+        .error-msg { color: #e74c3c; font-size: 0.85rem; margin-top: 5px; display: none; }
+        .links { margin-top: 20px; text-align: center; }
+        .links a { color: #6c5ce7; text-decoration: none; margin: 0 10px; }
+        footer { text-align: center; padding: 30px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EventHub</h1>
+    </header>
+    <main>
+        <div class="reg-form">
+            <h2>Conference Registration</h2>
+            <p class="sub">Fill in your details to register for TechConf 2025.</p>
+            <form action="/register" method="POST">
+                <div class="field">
+                    <input type="text" placeholder="Full Name" id="name">
+                    <p class="error-msg" id="name-error">Please enter your full name</p>
+                </div>
+                <div class="field">
+                    <input type="email" placeholder="Email Address" id="email">
+                    <p class="error-msg" id="email-error">Please enter a valid email</p>
+                </div>
+                <div class="field">
+                    <input type="text" placeholder="Company / Organization" id="company">
+                </div>
+                <div class="field">
+                    <select id="ticket">
+                        <option value="">Select Ticket Type</option>
+                        <option value="general">General Admission - $299</option>
+                        <option value="vip">VIP Access - $599</option>
+                        <option value="student">Student - $99</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <input type="text" placeholder="Dietary Requirements (optional)" id="dietary">
+                </div>
+                <button type="submit">Register Now</button>
+            </form>
+            <div class="links">
+                <a href="/schedule" target="_blank">View Schedule</a>
+                <a href="/speakers" target="_blank">Meet the Speakers</a>
+                <a href="/venue" target="_blank">Venue & Travel</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 EventHub</p>
+    </footer>
+</body>
+</html>

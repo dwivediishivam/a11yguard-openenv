@@ -1,0 +1,39 @@
+{
+  "violations": [
+    {
+      "violation_type": "missing_form_labels",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [42],
+      "description": "Input field 'name' has no associated <label> element. Placeholder text is not a substitute for labels.",
+      "severity": "critical",
+      "reference_fix": "<label for=\"name\">Your Name</label>\n<input type=\"text\" id=\"name\" placeholder=\"Your Name\">"
+    },
+    {
+      "violation_type": "missing_form_labels",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [45],
+      "description": "Input field 'email' has no associated <label> element. Placeholder text is not a substitute for labels.",
+      "severity": "critical",
+      "reference_fix": "<label for=\"email\">Email Address</label>\n<input type=\"email\" id=\"email\" placeholder=\"Email Address\">"
+    },
+    {
+      "violation_type": "missing_form_labels",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [48],
+      "description": "Input field 'subject' has no associated <label> element. Placeholder text is not a substitute for labels.",
+      "severity": "critical",
+      "reference_fix": "<label for=\"subject\">Subject</label>\n<input type=\"text\" id=\"subject\" placeholder=\"Subject\">"
+    },
+    {
+      "violation_type": "missing_form_labels",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [51],
+      "description": "Textarea 'message' has no associated <label> element. Placeholder text is not a substitute for labels.",
+      "severity": "critical",
+      "reference_fix": "<label for=\"message\">Your Message</label>\n<textarea id=\"message\" placeholder=\"Your Message\"></textarea>"
+    }
+  ],
+  "total_violations": 4,
+  "difficulty": "easy",
+  "page_description": "A restaurant contact form with four input fields (name, email, subject, message). None of the inputs have associated <label> elements — only placeholder text is used."
+}

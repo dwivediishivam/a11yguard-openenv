@@ -1,0 +1,55 @@
+{
+  "violations": [
+    {
+      "violation_type": "focus_outline_removed",
+      "wcag_criterion": "2.4.7",
+      "line_numbers": [8],
+      "description": "Global CSS '* { outline: none; }' removes all focus indicators, making keyboard navigation impossible.",
+      "severity": "critical",
+      "reference_fix": "Remove 'outline: none' from universal selector. Add: *:focus-visible { outline: 2px solid #333; outline-offset: 2px; }"
+    },
+    {
+      "violation_type": "nav_uses_div_not_semantic",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [60, 61, 62, 63, 64],
+      "description": "Main navigation uses non-semantic <div> elements instead of <nav> with <a> or <button>. Div elements are not keyboard-focusable and have no navigation landmark role.",
+      "severity": "critical",
+      "reference_fix": "<nav aria-label=\"Main navigation\">\n<a href=\"/new-arrivals\">New Arrivals</a>\n<a href=\"/women\">Women</a>\n...</nav>"
+    },
+    {
+      "violation_type": "icon_links_no_accessible_name",
+      "wcag_criterion": "2.4.4",
+      "line_numbers": [55, 56, 57, 58],
+      "description": "Header icon links (🔍, 👤, ♡, 🛒) use emoji with no aria-label. Screen readers cannot determine the purpose of these links.",
+      "severity": "critical",
+      "reference_fix": "<a href=\"/search\" aria-label=\"Search\">🔍</a>\n<a href=\"/account\" aria-label=\"My Account\">👤</a>\n<a href=\"/wishlist\" aria-label=\"Wishlist\">♡</a>\n<a href=\"/cart\" aria-label=\"Shopping Cart\">🛒</a>"
+    },
+    {
+      "violation_type": "color_swatch_no_accessible_name",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [88, 89, 90],
+      "description": "Color selection swatches are div elements with only a title attribute and no role or aria-label. They are not keyboard-accessible and screen readers cannot interact with them as controls.",
+      "severity": "serious",
+      "reference_fix": "<button class=\"color-dot\" style=\"background:#2c3e50;\" aria-label=\"Select Navy color\" role=\"radio\" aria-checked=\"false\"></button>"
+    },
+    {
+      "violation_type": "hover_only_quick_view",
+      "wcag_criterion": "2.1.1",
+      "line_numbers": [84],
+      "description": "Quick View overlay is only accessible on mouse hover via CSS. Keyboard users and screen reader users cannot activate this functionality.",
+      "severity": "serious",
+      "reference_fix": "<button class=\"quick-view\" tabindex=\"0\">Quick View</button>"
+    },
+    {
+      "violation_type": "newsletter_input_no_label",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [130],
+      "description": "Newsletter email input has no associated label element, only placeholder text.",
+      "severity": "critical",
+      "reference_fix": "<label for=\"newsletter-email\" class=\"sr-only\">Email address</label>\n<input type=\"email\" id=\"newsletter-email\" placeholder=\"Your email address\">"
+    }
+  ],
+  "total_violations": 6,
+  "difficulty": "hard",
+  "page_description": "A luxury fashion e-commerce homepage with announcement bar, header icons, mega navigation, hero section, product grid with color swatches and hover-only quick view, newsletter signup, and footer. Multiple accessibility issues across navigation, interactive elements, and form controls."
+}

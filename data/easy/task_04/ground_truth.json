@@ -1,0 +1,23 @@
+{
+  "violations": [
+    {
+      "violation_type": "non_descriptive_link_text",
+      "wcag_criterion": "2.4.4",
+      "line_numbers": [56],
+      "description": "Link text 'Click here' is non-descriptive and does not convey the purpose of the link to screen reader users",
+      "severity": "serious",
+      "reference_fix": "<a href=\"/signup\">Sign up</a> to get started or <a href=\"/catalog\">browse all courses</a>."
+    },
+    {
+      "violation_type": "non_descriptive_link_text",
+      "wcag_criterion": "2.4.4",
+      "line_numbers": [56],
+      "description": "Second 'click here' link text is non-descriptive and does not convey the purpose of the link",
+      "severity": "serious",
+      "reference_fix": "<a href=\"/catalog\">browse all courses</a>"
+    }
+  ],
+  "total_violations": 2,
+  "difficulty": "easy",
+  "page_description": "An online course platform page showing popular courses. Contains two 'click here' links that do not describe their destination."
+}

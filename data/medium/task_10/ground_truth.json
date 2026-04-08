@@ -1,0 +1,31 @@
+{
+  "violations": [
+    {
+      "violation_type": "accordion_no_aria_expanded",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [67, 72, 77],
+      "description": "FAQ accordion items use clickable divs without aria-expanded state. Screen readers cannot determine whether an accordion section is open or closed.",
+      "severity": "serious",
+      "reference_fix": "<button class=\"faq-question\" aria-expanded=\"false\" aria-controls=\"faq-1\">\n<span>Can I use DocHub with TypeScript?</span>\n<span aria-hidden=\"true\">▼</span>\n</button>\n<div id=\"faq-1\" class=\"faq-answer\" role=\"region\">...</div>"
+    },
+    {
+      "violation_type": "accordion_uses_div_not_button",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [67, 72, 77],
+      "description": "FAQ question elements are divs with cursor:pointer, not actual <button> elements. They cannot be activated via keyboard (Enter/Space) and have no implicit button role.",
+      "severity": "critical",
+      "reference_fix": "<button class=\"faq-question\" aria-expanded=\"false\" aria-controls=\"faq-answer-1\">...</button>"
+    },
+    {
+      "violation_type": "accordion_no_aria_controls",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [67, 72, 77],
+      "description": "Accordion triggers have no aria-controls attribute linking them to their associated content panel.",
+      "severity": "serious",
+      "reference_fix": "<button aria-controls=\"faq-1\" aria-expanded=\"false\">...</button>\n<div id=\"faq-1\" role=\"region\">Answer content</div>"
+    }
+  ],
+  "total_violations": 3,
+  "difficulty": "medium",
+  "page_description": "A documentation site with sidebar navigation and an FAQ accordion section. The accordion uses non-semantic divs without ARIA expanded states, controls, or keyboard accessibility."
+}

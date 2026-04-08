@@ -1,0 +1,47 @@
+{
+  "violations": [
+    {
+      "violation_type": "infinite_scroll_no_keyboard_support",
+      "wcag_criterion": "2.1.1",
+      "line_numbers": [156, 158, 159, 160, 161, 162, 163],
+      "description": "Infinite scroll loads new content only via a scroll event listener with no keyboard-accessible alternative. Keyboard-only users have no mechanism to trigger loading more posts or to reach a pagination control.",
+      "severity": "critical",
+      "reference_fix": "<button class=\"load-more\" onclick=\"loadMorePosts()\">Load more posts</button>\n<p class=\"sr-only\" aria-live=\"polite\" id=\"post-status\"></p>"
+    },
+    {
+      "violation_type": "emoji_reactions_no_labels",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [113, 114, 115, 134, 135, 150, 151, 152],
+      "description": "Emoji reaction elements are interactive (clickable spans) but have no accessible names. Screen readers announce raw Unicode codepoints or nothing at all, providing no indication of what action each reaction performs.",
+      "severity": "critical",
+      "reference_fix": "<button class=\"reaction\" aria-label=\"Fire reaction, 15 reactions\" aria-pressed=\"true\">&#x1F525; 15</button>"
+    },
+    {
+      "violation_type": "timestamps_not_machine_readable",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [103, 123, 143],
+      "description": "Post timestamps display relative times like '2h' and '5h' as plain text spans with no <time> element or datetime attribute. Assistive technologies cannot convey when the post was published in an unambiguous format.",
+      "severity": "serious",
+      "reference_fix": "<time class=\"time\" datetime=\"2026-04-08T10:00:00Z\">2h ago</time>"
+    },
+    {
+      "violation_type": "avatar_images_no_alt",
+      "wcag_criterion": "1.1.1",
+      "line_numbers": [82, 96, 119, 139],
+      "description": "User avatar <img> elements have no alt attributes. Screen readers either announce the filename or skip them entirely, providing no context about whose post or compose area is being shown.",
+      "severity": "serious",
+      "reference_fix": "<img class=\"avatar\" src=\"avatar-sarah.jpg\" alt=\"Sarah Chen's profile picture\">"
+    },
+    {
+      "violation_type": "div_based_interactive_elements",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [107, 108, 109, 110, 128, 129, 130, 131, 146, 147, 148, 149],
+      "description": "Post action controls (reply, repost, like, share) are styled divs rather than buttons. They are not focusable, have no roles, and cannot be activated via keyboard. Screen readers do not announce them as interactive elements.",
+      "severity": "critical",
+      "reference_fix": "<button class=\"post-action\" aria-label=\"Reply, 12 replies\"><span class=\"icon\" aria-hidden=\"true\"></span> 12</button>"
+    }
+  ],
+  "total_violations": 5,
+  "difficulty": "hard",
+  "page_description": "A social media feed page similar to Twitter/X with a sidebar navigation, post composer, timeline of posts with reply/repost/like actions, emoji reactions, and a trending topics sidebar. Issues include infinite scroll with no keyboard alternative, unlabeled emoji reactions, non-semantic timestamps, avatar images missing alt text, and div-based interactive controls."
+}

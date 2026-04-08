@@ -1,0 +1,47 @@
+{
+  "violations": [
+    {
+      "violation_type": "stepper_no_aria",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65],
+      "description": "Multi-step progress indicator has no ARIA attributes (aria-current='step', role='list') to convey step state to screen readers. Users cannot determine which step is active, completed, or pending.",
+      "severity": "serious",
+      "reference_fix": "<ol class=\"steps-indicator\" aria-label=\"Checkout progress\">\n<li class=\"step done\" aria-current=\"false\">...</li>\n<li class=\"step active\" aria-current=\"step\">...</li>\n<li class=\"step\">...</li>\n</ol>"
+    },
+    {
+      "violation_type": "filter_tags_not_buttons",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [72, 73, 74, 75, 76, 77],
+      "description": "Dietary filter tags are <div> elements with cursor:pointer, not <button> or elements with role='checkbox'. They are not keyboard-focusable and cannot be toggled by assistive technology.",
+      "severity": "critical",
+      "reference_fix": "<button class=\"filter-tag\" role=\"checkbox\" aria-checked=\"true\">All</button>\n<button class=\"filter-tag\" role=\"checkbox\" aria-checked=\"false\">Vegetarian</button>"
+    },
+    {
+      "violation_type": "quantity_buttons_no_labels",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [92, 94, 107, 109, 122, 124, 137, 139],
+      "description": "Quantity increment/decrement buttons show only '−' and '+' symbols with no aria-label. Screen readers cannot distinguish between multiple sets of +/- buttons for different meals.",
+      "severity": "critical",
+      "reference_fix": "<button aria-label=\"Decrease quantity of Herb-Crusted Salmon\">−</button>\n<span aria-live=\"polite\" aria-label=\"Quantity\">0</span>\n<button aria-label=\"Increase quantity of Herb-Crusted Salmon\">+</button>"
+    },
+    {
+      "violation_type": "duplicate_add_buttons",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [96, 111, 126, 141],
+      "description": "Multiple 'Add' buttons exist with identical text but for different meals. Screen reader users cannot distinguish which meal each Add button corresponds to.",
+      "severity": "serious",
+      "reference_fix": "<button class=\"add-btn\" aria-label=\"Add Herb-Crusted Salmon to order\">Add</button>"
+    },
+    {
+      "violation_type": "allergen_warning_no_role",
+      "wcag_criterion": "4.1.3",
+      "line_numbers": [156],
+      "description": "Allergen warning is a plain div with no role='alert' or aria-live. This critical safety information is not announced to screen reader users.",
+      "severity": "critical",
+      "reference_fix": "<div class=\"allergen-warning\" role=\"alert\">"
+    }
+  ],
+  "total_violations": 5,
+  "difficulty": "hard",
+  "page_description": "A meal kit ordering page with multi-step indicator, dietary filters, meal cards with quantity selectors and add buttons, order summary, and allergen warning. Issues include non-semantic step indicator, div-based filter tags, unlabeled quantity buttons, ambiguous add buttons, and unannounced allergen warning."
+}

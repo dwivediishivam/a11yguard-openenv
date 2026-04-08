@@ -1,0 +1,15 @@
+{
+  "violations": [
+    {
+      "violation_type": "missing_page_title",
+      "wcag_criterion": "2.4.2",
+      "line_numbers": [5],
+      "description": "The page is missing a <title> element. Page titles help users understand the content and purpose of a page, and are the first thing announced by screen readers.",
+      "severity": "critical",
+      "reference_fix": "<title>Scientists Discover New Carbon Capture Method - The Daily Chronicle</title>"
+    }
+  ],
+  "total_violations": 1,
+  "difficulty": "easy",
+  "page_description": "A newspaper-style article about carbon capture research. The page head section has no <title> element."
+}

@@ -1,0 +1,55 @@
+{
+  "violations": [
+    {
+      "violation_type": "missing_lang_attribute",
+      "wcag_criterion": "3.1.1",
+      "line_numbers": [2],
+      "description": "HTML element is missing the lang attribute.",
+      "severity": "critical",
+      "reference_fix": "<html lang=\"en\">"
+    },
+    {
+      "violation_type": "focus_outline_removed",
+      "wcag_criterion": "2.4.7",
+      "line_numbers": [8],
+      "description": "Global CSS '* { outline: none; }' removes all focus indicators.",
+      "severity": "critical",
+      "reference_fix": "Remove 'outline: none'. Add: *:focus-visible { outline: 2px solid #1db954; outline-offset: 2px; }"
+    },
+    {
+      "violation_type": "media_controls_no_labels",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [66, 67, 68, 69, 70],
+      "description": "Media player control buttons (⏮, ⏪, ▶, ⏩, ⏭) use only emoji symbols with no aria-label. Screen readers cannot determine button purpose.",
+      "severity": "critical",
+      "reference_fix": "<button class=\"ctrl-btn\" aria-label=\"Previous track\">⏮</button>\n<button class=\"ctrl-btn\" aria-label=\"Rewind 15 seconds\">⏪</button>\n<button class=\"ctrl-btn play\" aria-label=\"Play\">▶</button>\n<button class=\"ctrl-btn\" aria-label=\"Forward 15 seconds\">⏩</button>\n<button class=\"ctrl-btn\" aria-label=\"Next track\">⏭</button>"
+    },
+    {
+      "violation_type": "slider_no_aria",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [72, 77],
+      "description": "Progress bar and volume slider are custom div-based controls with no role='slider', aria-valuenow, aria-valuemin, aria-valuemax. They are not operable or readable by assistive technology.",
+      "severity": "critical",
+      "reference_fix": "<div class=\"progress-bar\" role=\"slider\" aria-label=\"Playback progress\" aria-valuenow=\"35\" aria-valuemin=\"0\" aria-valuemax=\"100\" tabindex=\"0\">"
+    },
+    {
+      "violation_type": "transcript_toggle_not_button",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [107],
+      "description": "Transcript toggle is a <div> with cursor:pointer, not a <button>. It lacks keyboard accessibility and has no aria-expanded state.",
+      "severity": "serious",
+      "reference_fix": "<button aria-expanded=\"false\" aria-controls=\"transcript-content\">Show Transcript ▼</button>"
+    },
+    {
+      "violation_type": "search_button_no_label",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [60],
+      "description": "Search button contains only a 🔍 emoji with no aria-label or accessible text.",
+      "severity": "serious",
+      "reference_fix": "<button aria-label=\"Search\">🔍</button>"
+    }
+  ],
+  "total_violations": 6,
+  "difficulty": "hard",
+  "page_description": "A podcast player platform with custom media controls, progress/volume sliders, episode list, and transcript toggle. Issues include missing lang, no focus indicators, unlabeled media controls, non-semantic sliders, inaccessible transcript toggle, and unlabeled search button."
+}

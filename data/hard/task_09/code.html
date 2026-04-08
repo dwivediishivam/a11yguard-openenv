@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chirper - Social Feed</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f9fa; color: #14171a; }
+        .layout { display: flex; max-width: 1200px; margin: 0 auto; min-height: 100vh; }
+        .sidebar { width: 260px; padding: 20px; position: sticky; top: 0; height: 100vh; border-right: 1px solid #e6ecf0; background: white; }
+        .sidebar .logo { font-size: 1.6rem; font-weight: bold; color: #1da1f2; margin-bottom: 30px; }
+        .sidebar .nav-item { display: flex; align-items: center; gap: 15px; padding: 12px 15px; border-radius: 30px; font-size: 1.1rem; color: #14171a; text-decoration: none; margin-bottom: 4px; }
+        .sidebar .nav-item:hover { background: #e8f5fe; }
+        .sidebar .nav-item.active { font-weight: bold; }
+        .sidebar .nav-icon { width: 24px; height: 24px; background: #657786; border-radius: 4px; }
+        .btn-post { width: 100%; background: #1da1f2; color: white; border: none; padding: 14px; border-radius: 30px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .feed { flex: 1; max-width: 600px; border-right: 1px solid #e6ecf0; }
+        .feed-header { padding: 15px 20px; background: white; border-bottom: 1px solid #e6ecf0; position: sticky; top: 0; z-index: 10; }
+        .feed-header h2 { font-size: 1.2rem; }
+        .compose { padding: 15px 20px; background: white; border-bottom: 1px solid #e6ecf0; display: flex; gap: 12px; }
+        .compose .avatar { width: 48px; height: 48px; border-radius: 50%; background: #ccd6dd; flex-shrink: 0; }
+        .compose textarea { flex: 1; border: none; resize: none; font-family: inherit; font-size: 1.1rem; padding: 10px 0; height: 80px; }
+        .compose textarea::placeholder { color: #9197a3; }
+        .compose-actions { display: flex; justify-content: space-between; align-items: center; padding: 0 20px 15px 80px; background: white; border-bottom: 8px solid #e6ecf0; }
+        .compose-icons { display: flex; gap: 15px; }
+        .compose-icons span { width: 20px; height: 20px; background: #1da1f2; border-radius: 4px; display: inline-block; opacity: 0.7; cursor: pointer; }
+        .btn-chirp { background: #1da1f2; color: white; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+        .post { padding: 15px 20px; border-bottom: 1px solid #e6ecf0; background: white; display: flex; gap: 12px; }
+        .post .avatar { width: 48px; height: 48px; border-radius: 50%; background: #ccd6dd; flex-shrink: 0; }
+        .post-body { flex: 1; }
+        .post-header { display: flex; gap: 5px; align-items: baseline; margin-bottom: 4px; }
+        .post-header .name { font-weight: bold; font-size: 0.95rem; }
+        .post-header .handle { color: #657786; font-size: 0.9rem; }
+        .post-header .time { color: #657786; font-size: 0.9rem; }
+        .post-text { font-size: 0.95rem; line-height: 1.4; margin-bottom: 10px; }
+        .post-image { width: 100%; height: 200px; background: #e1e8ed; border-radius: 16px; margin-bottom: 10px; }
+        .post-actions { display: flex; gap: 60px; }
+        .post-action { display: flex; align-items: center; gap: 8px; color: #657786; font-size: 0.85rem; cursor: pointer; }
+        .post-action .icon { width: 18px; height: 18px; background: #657786; border-radius: 50%; }
+        .reactions { display: flex; gap: 4px; margin-top: 8px; }
+        .reaction { font-size: 1.1rem; cursor: pointer; padding: 2px 6px; border-radius: 12px; background: #f0f3f5; }
+        .reaction.active { background: #e8f5fe; }
+        .trending { width: 340px; padding: 20px; }
+        .trending-card { background: white; border-radius: 16px; padding: 15px; margin-bottom: 15px; }
+        .trending-card h3 { font-size: 1.1rem; margin-bottom: 12px; }
+        .trending-item { padding: 10px 0; border-bottom: 1px solid #e6ecf0; }
+        .trending-item:last-child { border-bottom: none; }
+        .trending-item .category { font-size: 0.75rem; color: #657786; }
+        .trending-item .topic { font-weight: bold; font-size: 0.95rem; margin: 2px 0; }
+        .trending-item .count { font-size: 0.8rem; color: #657786; }
+        .loader { text-align: center; padding: 30px; color: #657786; }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">Chirper</div>
+            <a href="#" class="nav-item active"><div class="nav-icon"></div> Home</a>
+            <a href="#" class="nav-item"><div class="nav-icon"></div> Explore</a>
+            <a href="#" class="nav-item"><div class="nav-icon"></div> Notifications</a>
+            <a href="#" class="nav-item"><div class="nav-icon"></div> Messages</a>
+            <a href="#" class="nav-item"><div class="nav-icon"></div> Profile</a>
+            <button class="btn-post">Post</button>
+        </aside>
+
+        <main class="feed">
+            <div class="feed-header">
+                <h2>Home</h2>
+            </div>
+
+            <div class="compose">
+                <img class="avatar" src="avatar-me.jpg">
+                <textarea placeholder="What's happening?"></textarea>
+            </div>
+            <div class="compose-actions">
+                <div class="compose-icons">
+                    <span title="Photo"></span>
+                    <span title="GIF"></span>
+                    <span title="Poll"></span>
+                    <span title="Emoji"></span>
+                </div>
+                <button class="btn-chirp">Chirp</button>
+            </div>
+
+            <div class="post">
+                <img class="avatar" src="avatar-sarah.jpg">
+                <div class="post-body">
+                    <div class="post-header">
+                        <span class="name">Sarah Chen</span>
+                        <span class="handle">@sarahchen</span>
+                        <span class="time">- 2h</span>
+                    </div>
+                    <p class="post-text">Just shipped our new design system! Months of work finally paying off. The component library is now available for all teams.</p>
+                    <div class="post-actions">
+                        <div class="post-action"><span class="icon"></span> 12</div>
+                        <div class="post-action"><span class="icon"></span> 48</div>
+                        <div class="post-action"><span class="icon"></span> 203</div>
+                        <div class="post-action"><span class="icon"></span></div>
+                    </div>
+                    <div class="reactions">
+                        <span class="reaction active">&#x1F525; 15</span>
+                        <span class="reaction">&#x1F44F; 8</span>
+                        <span class="reaction">&#x2764;&#xFE0F; 42</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post">
+                <img class="avatar" src="avatar-james.jpg">
+                <div class="post-body">
+                    <div class="post-header">
+                        <span class="name">James Park</span>
+                        <span class="handle">@jpark_dev</span>
+                        <span class="time">- 5h</span>
+                    </div>
+                    <p class="post-text">Hot take: TypeScript's type system is Turing complete and that's both amazing and terrifying. Anyone else gone down this rabbit hole?</p>
+                    <div class="post-image"></div>
+                    <div class="post-actions">
+                        <div class="post-action"><span class="icon"></span> 89</div>
+                        <div class="post-action"><span class="icon"></span> 156</div>
+                        <div class="post-action"><span class="icon"></span> 412</div>
+                        <div class="post-action"><span class="icon"></span></div>
+                    </div>
+                    <div class="reactions">
+                        <span class="reaction">&#x1F602; 23</span>
+                        <span class="reaction active">&#x1F4AF; 7</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post">
+                <img class="avatar" src="avatar-maya.jpg">
+                <div class="post-body">
+                    <div class="post-header">
+                        <span class="name">Maya Rodriguez</span>
+                        <span class="handle">@mayarod</span>
+                        <span class="time">- 8h</span>
+                    </div>
+                    <p class="post-text">Accessibility is not a feature, it's a right. If your app doesn't work with a screen reader, it doesn't work. Period.</p>
+                    <div class="post-actions">
+                        <div class="post-action"><span class="icon"></span> 234</div>
+                        <div class="post-action"><span class="icon"></span> 891</div>
+                        <div class="post-action"><span class="icon"></span> 2.1K</div>
+                        <div class="post-action"><span class="icon"></span></div>
+                    </div>
+                    <div class="reactions">
+                        <span class="reaction active">&#x1F64F; 56</span>
+                        <span class="reaction">&#x2764;&#xFE0F; 112</span>
+                        <span class="reaction">&#x1F525; 34</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loader" id="infinite-scroll-trigger">
+                Loading more posts...
+            </div>
+
+            <script>
+                window.addEventListener('scroll', function() {
+                    var trigger = document.getElementById('infinite-scroll-trigger');
+                    var rect = trigger.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) {
+                        // Load more posts via AJAX
+                    }
+                });
+            </script>
+        </main>
+
+        <aside class="trending">
+            <div class="trending-card">
+                <h3>Trends for you</h3>
+                <div class="trending-item">
+                    <div class="category">Technology - Trending</div>
+                    <div class="topic">#DesignSystems</div>
+                    <div class="count">12.4K posts</div>
+                </div>
+                <div class="trending-item">
+                    <div class="category">Development - Trending</div>
+                    <div class="topic">#TypeScript5</div>
+                    <div class="count">8.9K posts</div>
+                </div>
+                <div class="trending-item">
+                    <div class="category">Web - Trending</div>
+                    <div class="topic">#a11y</div>
+                    <div class="count">5.2K posts</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

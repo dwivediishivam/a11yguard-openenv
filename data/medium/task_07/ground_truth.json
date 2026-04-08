@@ -1,0 +1,23 @@
+{
+  "violations": [
+    {
+      "violation_type": "icon_button_no_accessible_name",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [46, 50, 54],
+      "description": "Icon buttons (➕, 📥, 🔄) have no aria-label. Emoji icons are not reliably announced by screen readers. The tooltip text is only visible on hover and not programmatically associated.",
+      "severity": "critical",
+      "reference_fix": "<button class=\"icon-btn\" aria-label=\"Add User\">➕</button>"
+    },
+    {
+      "violation_type": "tooltip_not_keyboard_accessible",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [45, 49, 53],
+      "description": "Tooltip text is only visible on CSS :hover. It is not accessible via keyboard focus and not linked to the button with aria-describedby.",
+      "severity": "serious",
+      "reference_fix": "<button class=\"icon-btn\" aria-label=\"Add User\" aria-describedby=\"tip-add\">➕</button>\n<span id=\"tip-add\" class=\"tooltip-text\" role=\"tooltip\">Add User</span>"
+    }
+  ],
+  "total_violations": 2,
+  "difficulty": "medium",
+  "page_description": "An admin panel with a sidebar navigation, icon buttons with hover-only tooltips, and a user management table. Icon buttons lack accessible names and tooltips are not keyboard-accessible."
+}

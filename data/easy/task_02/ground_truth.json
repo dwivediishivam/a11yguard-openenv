@@ -1,0 +1,15 @@
+{
+  "violations": [
+    {
+      "violation_type": "missing_lang_attribute",
+      "wcag_criterion": "3.1.1",
+      "line_numbers": [2],
+      "description": "HTML element is missing the lang attribute, which helps screen readers determine the correct pronunciation and language rules",
+      "severity": "critical",
+      "reference_fix": "<html lang=\"en\">"
+    }
+  ],
+  "total_violations": 1,
+  "difficulty": "easy",
+  "page_description": "A weather dashboard showing current conditions and 5-day forecast for San Francisco. The html element is missing the lang attribute."
+}

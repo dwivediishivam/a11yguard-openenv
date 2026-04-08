@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobBoard - Apply Now</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f6fa; color: #333; }
+        header { background: #2d3436; color: white; padding: 15px 40px; }
+        header h1 { font-size: 1.3rem; }
+        main { max-width: 700px; margin: 30px auto; padding: 0 20px; }
+        .job-post { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 25px; }
+        .job-post h2 { font-size: 1.5rem; margin-bottom: 5px; }
+        .job-post .company { color: #0984e3; font-size: 1.1rem; margin-bottom: 15px; }
+        .job-post .tags { display: flex; gap: 10px; margin-bottom: 15px; }
+        .job-post .tag { padding: 4px 12px; background: #f0f2f5; border-radius: 15px; font-size: 0.85rem; }
+        .job-post .desc { line-height: 1.7; margin-bottom: 15px; }
+        .job-post h3 { margin: 20px 0 10px; }
+        .job-post ul { margin-left: 20px; margin-bottom: 15px; }
+        .job-post li { margin-bottom: 6px; line-height: 1.5; }
+        .apply-form { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .apply-form h2 { margin-bottom: 20px; }
+        .field { margin-bottom: 16px; }
+        .field label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        .field input, .field textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1rem; }
+        .field textarea { height: 120px; resize: vertical; }
+        .field .error { color: #e74c3c; font-size: 0.85rem; margin-top: 5px; }
+        button { background: #0984e3; color: white; border: none; padding: 12px 30px; border-radius: 6px; font-size: 1rem; cursor: pointer; width: 100%; }
+        .terms { margin: 15px 0; font-size: 0.9rem; }
+        .terms a { color: #0984e3; }
+        footer { text-align: center; padding: 30px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>JobBoard</h1>
+    </header>
+    <main>
+        <div class="job-post">
+            <h2>Senior Frontend Engineer</h2>
+            <p class="company">Acme Technologies</p>
+            <div class="tags">
+                <span class="tag">Remote</span>
+                <span class="tag">Full-time</span>
+                <span class="tag">$150K-$200K</span>
+            </div>
+            <p class="desc">We're looking for a senior frontend engineer to join our growing team. You'll work on our core product used by millions of users worldwide.</p>
+            <h3>Requirements</h3>
+            <ul>
+                <li>5+ years of experience with React or Vue</li>
+                <li>Strong TypeScript skills</li>
+                <li>Experience with design systems</li>
+                <li>Knowledge of accessibility standards (WCAG 2.1)</li>
+            </ul>
+            <h3>Benefits</h3>
+            <ul>
+                <li>Competitive salary and equity</li>
+                <li>Remote-first culture</li>
+                <li>Unlimited PTO</li>
+                <li>Annual learning budget of $5,000</li>
+            </ul>
+        </div>
+        <div class="apply-form">
+            <h2>Apply Now</h2>
+            <form action="/apply" method="POST" novalidate>
+                <div class="field">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                    <p class="error">Name is required</p>
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                    <p class="error">Valid email is required</p>
+                </div>
+                <div class="field">
+                    <label for="portfolio">Portfolio URL</label>
+                    <input type="url" id="portfolio">
+                </div>
+                <div class="field">
+                    <label for="cover">Cover Letter</label>
+                    <textarea id="cover"></textarea>
+                </div>
+                <div class="terms">
+                    <input type="checkbox" id="agree">
+                    By submitting, you agree to our <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.
+                </div>
+                <button type="submit">Submit Application</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 JobBoard</p>
+    </footer>
+</body>
+</html>

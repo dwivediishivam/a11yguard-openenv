@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudHR - Employee Directory</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f6fa; color: #333; }
+        header { background: #2d3436; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.3rem; }
+        .header-actions { display: flex; gap: 15px; align-items: center; }
+        .header-actions input { background: #3d3d56; border: none; color: white; padding: 8px 15px; border-radius: 6px; width: 200px; }
+        .header-actions input::placeholder { color: #888; }
+        .header-actions a { color: #ddd; text-decoration: none; font-size: 0.9rem; }
+        .breadcrumb { padding: 12px 30px; background: white; border-bottom: 1px solid #eee; font-size: 0.85rem; color: #888; }
+        .breadcrumb a { color: #0984e3; text-decoration: none; }
+        .page-layout { display: flex; }
+        .sidebar { width: 220px; background: white; border-right: 1px solid #eee; padding: 20px; min-height: calc(100vh - 100px); }
+        .sidebar h3 { font-size: 0.8rem; text-transform: uppercase; color: #888; margin-bottom: 10px; margin-top: 20px; }
+        .sidebar h3:first-child { margin-top: 0; }
+        .sidebar a { display: block; color: #555; text-decoration: none; padding: 6px 0; font-size: 0.9rem; }
+        .sidebar a.active { color: #0984e3; font-weight: bold; }
+        .content { flex: 1; padding: 25px 30px; }
+        .content h2 { margin-bottom: 5px; }
+        .content .subtitle { color: #888; margin-bottom: 20px; font-size: 0.9rem; }
+        .toolbar { display: flex; justify-content: space-between; margin-bottom: 20px; align-items: center; }
+        .view-toggle { display: flex; gap: 5px; }
+        .view-toggle div { width: 35px; height: 35px; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; }
+        .view-toggle div.active { background: #0984e3; color: white; border-color: #0984e3; }
+        .filter-dropdown { padding: 8px 15px; border: 1px solid #ddd; border-radius: 6px; background: white; cursor: pointer; }
+        .emp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .emp-card { background: white; border-radius: 10px; padding: 25px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .emp-card .avatar { width: 80px; height: 80px; border-radius: 50%; background: #dfe6e9; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #636e72; }
+        .emp-card h3 { margin-bottom: 3px; font-size: 1rem; }
+        .emp-card .role { color: #888; font-size: 0.85rem; margin-bottom: 5px; }
+        .emp-card .dept { background: #dfe6e9; display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 0.75rem; color: #636e72; margin-bottom: 12px; }
+        .emp-card .contact-row { display: flex; justify-content: center; gap: 10px; }
+        .emp-card .contact-btn { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; cursor: pointer; background: white; text-decoration: none; font-size: 0.9rem; }
+        .pagination { display: flex; justify-content: center; gap: 5px; margin-top: 25px; }
+        .pagination a { padding: 8px 14px; border: 1px solid #ddd; border-radius: 4px; text-decoration: none; color: #555; }
+        .pagination a.active { background: #0984e3; color: white; border-color: #0984e3; }
+        footer { text-align: center; padding: 30px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CloudHR</h1>
+        <div class="header-actions">
+            <input type="text" placeholder="Search employees...">
+            <a href="/notifications">🔔</a>
+            <a href="/profile">👤 Admin</a>
+        </div>
+    </header>
+    <div class="breadcrumb">
+        <a href="/">Home</a> &gt; <a href="/directory">Directory</a> &gt; <span>All Employees</span>
+    </div>
+    <div class="page-layout">
+        <div class="sidebar">
+            <h3>Departments</h3>
+            <a href="/dept/all" class="active">All Departments</a>
+            <a href="/dept/eng">Engineering</a>
+            <a href="/dept/design">Design</a>
+            <a href="/dept/marketing">Marketing</a>
+            <a href="/dept/sales">Sales</a>
+            <a href="/dept/hr">Human Resources</a>
+            <h3>Locations</h3>
+            <a href="/loc/sf">San Francisco</a>
+            <a href="/loc/nyc">New York</a>
+            <a href="/loc/london">London</a>
+            <a href="/loc/remote">Remote</a>
+        </div>
+        <div class="content">
+            <h2>Employee Directory</h2>
+            <p class="subtitle">148 employees across 6 departments</p>
+            <div class="toolbar">
+                <div class="view-toggle">
+                    <div class="active" title="Grid view">⊞</div>
+                    <div title="List view">☰</div>
+                </div>
+                <select class="filter-dropdown">
+                    <option>Sort by: Name</option>
+                    <option>Sort by: Department</option>
+                    <option>Sort by: Location</option>
+                    <option>Sort by: Start Date</option>
+                </select>
+            </div>
+            <div class="emp-grid">
+                <div class="emp-card">
+                    <div class="avatar">SJ</div>
+                    <h3>Sarah Johnson</h3>
+                    <p class="role">Senior Engineer</p>
+                    <span class="dept">Engineering</span>
+                    <div class="contact-row">
+                        <a href="mailto:sarah@company.com" class="contact-btn">✉️</a>
+                        <a href="tel:+1234567890" class="contact-btn">📞</a>
+                        <a href="/chat/sarah" class="contact-btn">💬</a>
+                    </div>
+                </div>
+                <div class="emp-card">
+                    <div class="avatar">MK</div>
+                    <h3>Mike Kim</h3>
+                    <p class="role">Product Designer</p>
+                    <span class="dept">Design</span>
+                    <div class="contact-row">
+                        <a href="mailto:mike@company.com" class="contact-btn">✉️</a>
+                        <a href="tel:+1234567891" class="contact-btn">📞</a>
+                        <a href="/chat/mike" class="contact-btn">💬</a>
+                    </div>
+                </div>
+                <div class="emp-card">
+                    <div class="avatar">LR</div>
+                    <h3>Lisa Rodriguez</h3>
+                    <p class="role">Marketing Manager</p>
+                    <span class="dept">Marketing</span>
+                    <div class="contact-row">
+                        <a href="mailto:lisa@company.com" class="contact-btn">✉️</a>
+                        <a href="tel:+1234567892" class="contact-btn">📞</a>
+                        <a href="/chat/lisa" class="contact-btn">💬</a>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination">
+                <a href="/page/1" class="active">1</a>
+                <a href="/page/2">2</a>
+                <a href="/page/3">3</a>
+                <a href="/page/4">4</a>
+                <a href="/page/5">5</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 CloudHR</p>
+    </footer>
+</body>
+</html>

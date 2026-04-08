@@ -1,0 +1,47 @@
+{
+  "violations": [
+    {
+      "violation_type": "view_toggle_not_buttons",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [82, 83],
+      "description": "View toggle controls (grid/list) are <div> elements with no button role or keyboard accessibility. The active state is only conveyed visually.",
+      "severity": "critical",
+      "reference_fix": "<button class=\"active\" aria-pressed=\"true\" aria-label=\"Grid view\">⊞</button>\n<button aria-pressed=\"false\" aria-label=\"List view\">☰</button>"
+    },
+    {
+      "violation_type": "contact_links_no_accessible_name",
+      "wcag_criterion": "2.4.4",
+      "line_numbers": [97, 98, 99, 105, 106, 107, 113, 114, 115],
+      "description": "Contact action links (✉️, 📞, 💬) use only emoji with no aria-label. Screen readers cannot determine whether the link is email, phone, or chat, or which employee it refers to.",
+      "severity": "critical",
+      "reference_fix": "<a href=\"mailto:sarah@company.com\" class=\"contact-btn\" aria-label=\"Email Sarah Johnson\">✉️</a>\n<a href=\"tel:+1234567890\" class=\"contact-btn\" aria-label=\"Call Sarah Johnson\">📞</a>"
+    },
+    {
+      "violation_type": "search_input_no_label",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [62],
+      "description": "Search input in header has no associated <label> element or aria-label. Only placeholder text is used.",
+      "severity": "serious",
+      "reference_fix": "<input type=\"text\" placeholder=\"Search employees...\" aria-label=\"Search employees\">"
+    },
+    {
+      "violation_type": "sidebar_not_nav_landmark",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [69],
+      "description": "Sidebar with department and location links is a generic <div> without <nav> or role='navigation', preventing screen readers from identifying it as navigation.",
+      "severity": "serious",
+      "reference_fix": "<nav class=\"sidebar\" aria-label=\"Department and location filters\">"
+    },
+    {
+      "violation_type": "pagination_no_nav_landmark",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [119],
+      "description": "Pagination links are not wrapped in a <nav> element with appropriate aria-label. The active page link has no aria-current='page' attribute.",
+      "severity": "serious",
+      "reference_fix": "<nav aria-label=\"Pagination\">\n<a href=\"/page/1\" aria-current=\"page\">1</a>\n<a href=\"/page/2\">2</a>\n</nav>"
+    }
+  ],
+  "total_violations": 5,
+  "difficulty": "hard",
+  "page_description": "An HR employee directory with sidebar filters, search, view toggle, employee cards with emoji contact buttons, and pagination. Issues across navigation landmarks, toggle buttons, contact link labels, search label, and pagination."
+}

@@ -1,0 +1,47 @@
+{
+  "violations": [
+    {
+      "violation_type": "gallery_images_no_alt",
+      "wcag_criterion": "1.1.1",
+      "line_numbers": [64, 65, 66, 67, 68],
+      "description": "Gallery image placeholders have no img elements with alt text. The content-bearing images (property photos) provide no text alternatives for screen readers.",
+      "severity": "critical",
+      "reference_fix": "<img src=\"photo1.jpg\" alt=\"Spacious living room with exposed brick walls and city view\">"
+    },
+    {
+      "violation_type": "booking_inputs_no_labels",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [103, 107],
+      "description": "Check-in and Checkout date inputs have no programmatically associated <label> elements. The <span> text above them is not linked via for/id.",
+      "severity": "critical",
+      "reference_fix": "<label for=\"checkin\">Check-in</label>\n<input type=\"text\" id=\"checkin\" placeholder=\"Add date\">"
+    },
+    {
+      "violation_type": "guest_select_no_label",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [113],
+      "description": "Guest count <select> has no associated <label>. The <span> text 'Guests' above it is not linked programmatically.",
+      "severity": "critical",
+      "reference_fix": "<label for=\"guests\">Guests</label>\n<select id=\"guests\">"
+    },
+    {
+      "violation_type": "map_no_text_alternative",
+      "wcag_criterion": "1.1.1",
+      "line_numbers": [93],
+      "description": "Interactive map placeholder provides no text alternative describing the location or address for screen reader users.",
+      "severity": "serious",
+      "reference_fix": "<div class=\"map-placeholder\" role=\"img\" aria-label=\"Map showing property location at Pearl District, Portland, Oregon\">Interactive Map</div>"
+    },
+    {
+      "violation_type": "star_rating_no_text_alternative",
+      "wcag_criterion": "1.1.1",
+      "line_numbers": [76, 127, 138],
+      "description": "Star ratings (★★★★★, ★★★★☆) convey information only visually. Screen readers read individual star characters. No aria-label provides the numeric rating.",
+      "severity": "serious",
+      "reference_fix": "<div class=\"stars\" aria-label=\"Rating: 4.9 out of 5 stars\">★★★★★ 4.9 (127)</div>"
+    }
+  ],
+  "total_violations": 5,
+  "difficulty": "hard",
+  "page_description": "A vacation rental listing page with photo gallery, booking form, interactive map, and reviews with star ratings. Issues include missing image alt text, unlabeled form fields, inaccessible map, and star ratings without text alternatives."
+}

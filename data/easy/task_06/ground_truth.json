@@ -1,0 +1,39 @@
+{
+  "violations": [
+    {
+      "violation_type": "empty_button_no_accessible_name",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [38],
+      "description": "Button contains only an emoji (🔍) with no accessible name. Screen readers cannot determine the button's purpose.",
+      "severity": "critical",
+      "reference_fix": "<button aria-label=\"Search\">🔍</button>"
+    },
+    {
+      "violation_type": "empty_button_no_accessible_name",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [39],
+      "description": "Button contains only an emoji (⬆️) with no accessible name.",
+      "severity": "critical",
+      "reference_fix": "<button aria-label=\"Upload\">⬆️</button>"
+    },
+    {
+      "violation_type": "empty_button_no_accessible_name",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [40],
+      "description": "Button contains only an emoji (❤️) with no accessible name.",
+      "severity": "critical",
+      "reference_fix": "<button aria-label=\"Favorites\">❤️</button>"
+    },
+    {
+      "violation_type": "empty_button_no_accessible_name",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [41],
+      "description": "Button contains only an emoji (☰) with no accessible name.",
+      "severity": "critical",
+      "reference_fix": "<button aria-label=\"Menu\">☰</button>"
+    }
+  ],
+  "total_violations": 4,
+  "difficulty": "easy",
+  "page_description": "A photo gallery application with a dark theme. The toolbar has four icon-only buttons (search, upload, favorites, menu) with no aria-label or accessible name."
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureBank - Sign In</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .login-container { width: 420px; }
+        .logo { text-align: center; margin-bottom: 30px; }
+        .logo h1 { font-size: 1.8rem; color: #1a3a5c; }
+        .logo p { color: #7a8a9a; font-size: 0.9rem; margin-top: 5px; }
+        .card { background: white; border-radius: 12px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .card h2 { font-size: 1.3rem; margin-bottom: 5px; color: #1a3a5c; }
+        .card .subtitle { color: #999; font-size: 0.85rem; margin-bottom: 25px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group .label-text { display: block; font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 6px; }
+        .form-group input[type="text"],
+        .form-group input[type="password"] { width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem; font-family: inherit; transition: border-color 0.2s; }
+        .form-group input:focus { outline: none; border-color: #2e86de; }
+        .hint { font-size: 0.75rem; color: #ccc; margin-top: 4px; }
+        .remember-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .remember-row label { font-size: 0.85rem; color: #555; display: flex; align-items: center; gap: 6px; }
+        .forgot-link { font-size: 0.85rem; color: #2e86de; text-decoration: none; }
+        .captcha-box { border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 20px; background: #fafafa; text-align: center; }
+        .captcha-box img { width: 200px; height: 60px; display: block; margin: 0 auto 10px; background: #e0e0e0; }
+        .captcha-box .captcha-image { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 1.5rem; font-weight: bold; letter-spacing: 8px; padding: 15px; border-radius: 4px; font-style: italic; user-select: none; margin-bottom: 10px; }
+        .captcha-box input { width: 160px; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; text-align: center; font-size: 0.95rem; }
+        .btn-signin { width: 100%; background: #2e86de; color: white; border: none; padding: 13px; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
+        .btn-signin:hover { background: #2475c5; }
+        .divider { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .divider hr { flex: 1; border: none; border-top: 1px solid #eee; }
+        .divider span { color: #999; font-size: 0.8rem; }
+        .social-login { display: flex; gap: 12px; margin-bottom: 20px; }
+        .social-btn { flex: 1; padding: 11px; border: 1px solid #ddd; border-radius: 8px; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.85rem; color: #555; }
+        .social-btn:hover { background: #f8f8f8; }
+        .social-icon { width: 20px; height: 20px; border-radius: 4px; display: inline-block; }
+        .social-icon.google { background: #ea4335; }
+        .social-icon.apple { background: #333; }
+        .social-icon.microsoft { background: #00a4ef; }
+        .signup-link { text-align: center; font-size: 0.85rem; color: #777; }
+        .signup-link a { color: #2e86de; text-decoration: none; font-weight: 600; }
+        footer { text-align: center; margin-top: 25px; font-size: 0.75rem; color: #aaa; }
+        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>SecureBank</h1>
+            <p>Online Banking Portal</p>
+        </div>
+
+        <div class="card">
+            <h2>Welcome back</h2>
+            <p class="subtitle">Sign in to access your accounts</p>
+
+            <form>
+                <div class="form-group">
+                    <span class="label-text">Email or Username</span>
+                    <input type="text" placeholder="Enter your email or username">
+                </div>
+
+                <div class="form-group">
+                    <span class="label-text">Password</span>
+                    <input type="password" placeholder="Enter your password">
+                    <p class="hint">Must be at least 8 characters</p>
+                </div>
+
+                <div class="remember-row">
+                    <label><input type="checkbox"> Remember me</label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <div class="captcha-box">
+                    <div class="captcha-image">X7kQ9m</div>
+                    <input type="text" placeholder="Enter code above">
+                </div>
+
+                <button type="submit" class="btn-signin">Sign In</button>
+            </form>
+
+            <div class="divider">
+                <hr>
+                <span>OR CONTINUE WITH</span>
+                <hr>
+            </div>
+
+            <div class="social-login">
+                <button class="social-btn">
+                    <span class="social-icon google"></span>
+                </button>
+                <button class="social-btn">
+                    <span class="social-icon apple"></span>
+                </button>
+                <button class="social-btn">
+                    <span class="social-icon microsoft"></span>
+                </button>
+            </div>
+
+            <p class="signup-link">Don't have an account? <a href="#">Sign up</a></p>
+        </div>
+
+        <footer>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Security</a>
+            <p style="margin-top: 8px;">&copy; 2026 SecureBank. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

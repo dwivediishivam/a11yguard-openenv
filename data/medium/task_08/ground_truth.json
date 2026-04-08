@@ -1,0 +1,31 @@
+{
+  "violations": [
+    {
+      "violation_type": "auto_scrolling_no_pause",
+      "wcag_criterion": "2.2.2",
+      "line_numbers": [12, 13],
+      "description": "The news ticker uses CSS animation to auto-scroll text continuously. There is no mechanism for users to pause, stop, or hide the moving content. This fails WCAG 2.2.2 (Pause, Stop, Hide).",
+      "severity": "serious",
+      "reference_fix": "Add a pause button: <button aria-label=\"Pause ticker\" onclick=\"document.querySelector('.ticker span').style.animationPlayState='paused'\">⏸</button>"
+    },
+    {
+      "violation_type": "no_aria_live_for_ticker",
+      "wcag_criterion": "4.1.3",
+      "line_numbers": [35],
+      "description": "The scrolling news ticker does not use aria-live or role='marquee' to announce updates to screen reader users. Moving text content needs to be programmatically conveyed.",
+      "severity": "serious",
+      "reference_fix": "<div class=\"ticker\" role=\"marquee\" aria-live=\"off\" aria-label=\"Breaking news ticker\">"
+    },
+    {
+      "violation_type": "image_missing_alt",
+      "wcag_criterion": "1.1.1",
+      "line_numbers": [66],
+      "description": "Advertisement image is missing alt attribute. If the image is decorative, use alt=''. If it conveys information, provide descriptive alt text.",
+      "severity": "serious",
+      "reference_fix": "<img src=\"...\" alt=\"\" role=\"presentation\">"
+    }
+  ],
+  "total_violations": 3,
+  "difficulty": "medium",
+  "page_description": "A news website with a continuously auto-scrolling ticker, story cards, and an advertisement image. The ticker has no pause mechanism or ARIA attributes, and the ad image lacks alt text."
+}

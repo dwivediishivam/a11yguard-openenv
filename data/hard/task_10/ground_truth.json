@@ -1,0 +1,47 @@
+{
+  "violations": [
+    {
+      "violation_type": "error_messages_not_linked_to_inputs",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [126, 131, 139],
+      "description": "Validation error messages are generic div elements not programmatically associated with their corresponding inputs via aria-describedby or aria-errormessage. Screen readers will not announce the error when the user focuses the invalid field.",
+      "severity": "critical",
+      "reference_fix": "<input type=\"text\" id=\"account-num\" aria-describedby=\"account-num-error\" aria-invalid=\"false\">\n<div class=\"error-message\" id=\"account-num-error\" role=\"alert\">Please enter a valid account number</div>"
+    },
+    {
+      "violation_type": "live_balance_no_aria_live",
+      "wcag_criterion": "4.1.3",
+      "line_numbers": [115],
+      "description": "The available balance display updates dynamically when users switch accounts, but the container has no aria-live attribute. Screen reader users are not notified of the balance change after selecting a different account.",
+      "severity": "serious",
+      "reference_fix": "<div class=\"balance-display\" aria-live=\"polite\">\n  Available balance: <span class=\"amount\" id=\"live-balance\">$12,458.32</span>\n</div>"
+    },
+    {
+      "violation_type": "custom_dropdown_not_accessible",
+      "wcag_criterion": "4.1.2",
+      "line_numbers": [96, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113],
+      "description": "The account selector is a custom dropdown built from divs with onclick handlers. It lacks role='listbox', aria-expanded, aria-haspopup, keyboard navigation, and focus management. Keyboard users cannot operate it and screen readers do not identify it as an interactive control.",
+      "severity": "critical",
+      "reference_fix": "<div class=\"custom-dropdown\" role=\"combobox\" aria-expanded=\"false\" aria-haspopup=\"listbox\" aria-label=\"Select source account\" tabindex=\"0\" onkeydown=\"handleDropdownKeys(event)\">"
+    },
+    {
+      "violation_type": "masked_account_numbers_no_context",
+      "wcag_criterion": "1.3.1",
+      "line_numbers": [99, 104, 109, 113],
+      "description": "Masked account numbers like '****4829' are displayed as plain text without screen reader context. Users hear 'star star star star four eight two nine' with no indication that this represents a partially hidden account number.",
+      "severity": "serious",
+      "reference_fix": "<div class=\"account-number\" aria-label=\"Account ending in 4829\">****4829</div>"
+    },
+    {
+      "violation_type": "form_validation_not_announced",
+      "wcag_criterion": "3.3.1",
+      "line_numbers": [126, 131, 139],
+      "description": "Error messages are toggled visible via CSS (display:none to block) but have no role='alert' or aria-live attribute. When validation fails, the appearance of errors is not communicated to assistive technologies.",
+      "severity": "critical",
+      "reference_fix": "<div class=\"error-message\" role=\"alert\" aria-live=\"assertive\">Please enter a valid account number</div>"
+    }
+  ],
+  "total_violations": 5,
+  "difficulty": "hard",
+  "page_description": "A banking fund transfer page with a custom account selector dropdown, recipient details form, amount input, scheduling options, and a transfer summary. Issues include error messages not linked to inputs, dynamic balance updates not announced, an inaccessible custom dropdown, masked account numbers without context, and form validation errors not announced to screen readers."
+}

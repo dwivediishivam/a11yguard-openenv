@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CookBook - Recipe Collection</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Georgia, serif; background: #faf8f5; color: #333; }
+        .top-bar { background: #8b4513; color: white; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .top-bar .logo { font-size: 1.5rem; font-weight: bold; }
+        .top-bar .links { display: flex; gap: 20px; }
+        .top-bar .links a { color: #ddd; text-decoration: none; }
+        main { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        .recipe { background: white; border-radius: 8px; padding: 30px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .recipe h1 { font-size: 2rem; margin-bottom: 10px; }
+        .recipe .meta { color: #888; margin-bottom: 25px; }
+        .recipe h2 { font-size: 1.3rem; margin: 20px 0 10px; color: #8b4513; }
+        .recipe ul, .recipe ol { margin-left: 25px; margin-bottom: 15px; }
+        .recipe li { margin-bottom: 8px; line-height: 1.6; }
+        .recipe p { line-height: 1.7; margin-bottom: 15px; }
+        .nutrition-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .nutrition-table td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+        .nutrition-table td:last-child { text-align: right; font-weight: bold; }
+        footer { text-align: center; padding: 30px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">CookBook</div>
+        <div class="links">
+            <a href="/recipes">Recipes</a>
+            <a href="/categories">Categories</a>
+            <a href="/favorites">Favorites</a>
+            <a href="/about">About</a>
+        </div>
+    </div>
+    <main>
+        <div class="recipe">
+            <h1>Classic Margherita Pizza</h1>
+            <p class="meta">Prep: 30 min · Cook: 12 min · Serves: 4</p>
+
+            <h2>Ingredients</h2>
+            <ul>
+                <li>2½ cups all-purpose flour</li>
+                <li>1 tsp active dry yeast</li>
+                <li>1 tsp salt</li>
+                <li>1 tbsp olive oil</li>
+                <li>¾ cup warm water</li>
+                <li>½ cup San Marzano tomato sauce</li>
+                <li>8 oz fresh mozzarella, sliced</li>
+                <li>Fresh basil leaves</li>
+            </ul>
+
+            <h2>Instructions</h2>
+            <ol>
+                <li>Combine flour, yeast, and salt in a bowl. Add water and olive oil. Knead for 8 minutes until smooth.</li>
+                <li>Cover dough and let it rise for 1 hour in a warm place.</li>
+                <li>Preheat oven to 475°F (245°C) with a pizza stone if available.</li>
+                <li>Stretch dough into a 12-inch circle on a floured surface.</li>
+                <li>Spread tomato sauce evenly, leaving a 1-inch border.</li>
+                <li>Top with mozzarella slices.</li>
+                <li>Bake for 10-12 minutes until crust is golden and cheese is bubbly.</li>
+                <li>Remove from oven, top with fresh basil, and serve immediately.</li>
+            </ol>
+
+            <h2>Nutrition Facts</h2>
+            <table class="nutrition-table">
+                <tr>
+                    <td>Calories</td>
+                    <td>285 kcal</td>
+                </tr>
+                <tr>
+                    <td>Protein</td>
+                    <td>12g</td>
+                </tr>
+                <tr>
+                    <td>Carbohydrates</td>
+                    <td>38g</td>
+                </tr>
+                <tr>
+                    <td>Fat</td>
+                    <td>10g</td>
+                </tr>
+                <tr>
+                    <td>Fiber</td>
+                    <td>2g</td>
+                </tr>
+            </table>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 CookBook</p>
+    </footer>
+</body>
+</html>

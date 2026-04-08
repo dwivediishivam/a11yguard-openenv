@@ -1,0 +1,31 @@
+{
+  "violations": [
+    {
+      "violation_type": "empty_link",
+      "wcag_criterion": "2.4.4",
+      "line_numbers": [43],
+      "description": "Anchor element has no text content or accessible name. Screen readers will only announce the URL, giving no context about the link's purpose.",
+      "severity": "critical",
+      "reference_fix": "<a href=\"/product/1\">View Wireless Headphones</a>"
+    },
+    {
+      "violation_type": "empty_link",
+      "wcag_criterion": "2.4.4",
+      "line_numbers": [51],
+      "description": "Anchor element has no text content or accessible name.",
+      "severity": "critical",
+      "reference_fix": "<a href=\"/product/2\">View Smart Watch Pro</a>"
+    },
+    {
+      "violation_type": "empty_link",
+      "wcag_criterion": "2.4.4",
+      "line_numbers": [59],
+      "description": "Anchor element has no text content or accessible name.",
+      "severity": "critical",
+      "reference_fix": "<a href=\"/product/3\">View Portable Speaker</a>"
+    }
+  ],
+  "total_violations": 3,
+  "difficulty": "easy",
+  "page_description": "An e-commerce deals page with product cards. Each product has an empty anchor element (<a href=\"...\"></a>) with no text content or aria-label."
+}

@@ -1,0 +1,23 @@
+{
+  "violations": [
+    {
+      "violation_type": "missing_alt_text",
+      "wcag_criterion": "1.1.1",
+      "line_numbers": [28],
+      "description": "Header logo image missing alt attribute providing text alternative",
+      "severity": "critical",
+      "reference_fix": "<img src=\"https://via.placeholder.com/50x50/1a1a2e/ffffff?text=TB\" alt=\"TechBlog logo\">"
+    },
+    {
+      "violation_type": "missing_alt_text",
+      "wcag_criterion": "1.1.1",
+      "line_numbers": [34],
+      "description": "Article illustration image missing alt attribute providing text alternative",
+      "severity": "critical",
+      "reference_fix": "<img src=\"https://via.placeholder.com/800x400/4a90d9/ffffff?text=AI+Agents+Illustration\" alt=\"Illustration of AI agents interacting with various software tools\">"
+    }
+  ],
+  "total_violations": 2,
+  "difficulty": "easy",
+  "page_description": "A tech blog article page about AI agents with a header logo and article illustration image, both missing alt attributes."
+}

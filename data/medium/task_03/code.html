@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassPortal - Student Grades</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; color: #333; }
+        header { background: #2d3436; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.3rem; }
+        main { max-width: 850px; margin: 30px auto; padding: 0 20px; }
+        h2 { margin-bottom: 5px; }
+        .subtitle { color: #777; margin-bottom: 20px; }
+        .grade-table { width: 100%; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-collapse: collapse; }
+        .grade-table td { padding: 12px 18px; border-bottom: 1px solid #f0f0f0; }
+        .grade-table tr:first-child td { background: #2d3436; color: white; font-weight: bold; }
+        .grade-table tr:last-child td { border-bottom: none; }
+        .grade-table tr:hover td { background: #f8f9fa; }
+        .grade-table tr:first-child:hover td { background: #2d3436; }
+        .grade { font-weight: bold; text-align: center; }
+        .grade-a { color: #27ae60; }
+        .grade-b { color: #2980b9; }
+        .grade-c { color: #f39c12; }
+        .grade-d { color: #e74c3c; }
+        .summary { background: white; border-radius: 8px; padding: 20px; margin-top: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; justify-content: space-around; text-align: center; }
+        .summary .stat h3 { font-size: 1.5rem; margin-bottom: 5px; }
+        .summary .stat p { color: #888; font-size: 0.85rem; }
+        footer { text-align: center; padding: 30px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ClassPortal</h1>
+        <span>Welcome, Alex</span>
+    </header>
+    <main>
+        <h2>Grade Report</h2>
+        <p class="subtitle">Fall 2025 Semester</p>
+        <table class="grade-table">
+            <tr>
+                <td>Course</td>
+                <td>Instructor</td>
+                <td>Credits</td>
+                <td>Midterm</td>
+                <td>Final</td>
+                <td>Grade</td>
+            </tr>
+            <tr>
+                <td>Introduction to Computer Science</td>
+                <td>Dr. Sarah Miller</td>
+                <td>4</td>
+                <td>92</td>
+                <td>88</td>
+                <td class="grade grade-a">A</td>
+            </tr>
+            <tr>
+                <td>Calculus II</td>
+                <td>Prof. James Lee</td>
+                <td>4</td>
+                <td>78</td>
+                <td>82</td>
+                <td class="grade grade-b">B+</td>
+            </tr>
+            <tr>
+                <td>English Composition</td>
+                <td>Dr. Emily Watson</td>
+                <td>3</td>
+                <td>85</td>
+                <td>90</td>
+                <td class="grade grade-a">A-</td>
+            </tr>
+            <tr>
+                <td>Physics I</td>
+                <td>Prof. Robert Chen</td>
+                <td>4</td>
+                <td>71</td>
+                <td>68</td>
+                <td class="grade grade-c">C+</td>
+            </tr>
+            <tr>
+                <td>Art History</td>
+                <td>Dr. Lisa Park</td>
+                <td>3</td>
+                <td>95</td>
+                <td>93</td>
+                <td class="grade grade-a">A</td>
+            </tr>
+        </table>
+        <div class="summary">
+            <div class="stat">
+                <h3>3.42</h3>
+                <p>Semester GPA</p>
+            </div>
+            <div class="stat">
+                <h3>18</h3>
+                <p>Credits Earned</p>
+            </div>
+            <div class="stat">
+                <h3>3.58</h3>
+                <p>Cumulative GPA</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 ClassPortal</p>
+    </footer>
+</body>
+</html>

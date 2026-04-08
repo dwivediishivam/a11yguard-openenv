@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedPortal - Patient Intake Form</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f8fa; color: #333; }
+        header { background: #00b894; color: white; padding: 20px 40px; }
+        header h1 { font-size: 1.4rem; }
+        main { max-width: 600px; margin: 30px auto; padding: 0 20px; }
+        .form-section { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 20px; }
+        .form-section h2 { font-size: 1.2rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+        .field { margin-bottom: 14px; }
+        .field label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; }
+        .field input, .field select, .field textarea {
+            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 1rem;
+        }
+        .field textarea { height: 80px; resize: vertical; }
+        .inline-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .status-bar { padding: 15px 20px; background: #e8f8f5; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; }
+        .status-bar span { font-weight: bold; }
+        button { background: #00b894; color: white; border: none; padding: 14px 30px; border-radius: 6px; font-size: 1rem; cursor: pointer; width: 100%; }
+        footer { text-align: center; padding: 30px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MedPortal</h1>
+    </header>
+    <main>
+        <div class="status-bar">
+            Step <span>1</span> of <span>3</span> — Personal Information
+        </div>
+        <form action="/submit" method="POST">
+            <div class="form-section">
+                <h2>Personal Information</h2>
+                <div class="inline-fields">
+                    <div class="field">
+                        <label for="firstname">First Name</label>
+                        <input type="text" id="firstname" name="firstname" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" id="lastname" name="lastname" autocomplete="off">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="dob">Date of Birth</label>
+                    <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY" autocomplete="off">
+                </div>
+                <div class="inline-fields">
+                    <div class="field">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <div class="form-section">
+                <h2>Medical History</h2>
+                <div class="field">
+                    <label for="conditions">Existing Conditions</label>
+                    <textarea id="conditions" name="conditions"></textarea>
+                </div>
+                <div class="field">
+                    <label for="medications">Current Medications</label>
+                    <textarea id="medications" name="medications"></textarea>
+                </div>
+                <div class="field">
+                    <label for="allergies">Allergies</label>
+                    <input type="text" id="allergies" name="allergies">
+                </div>
+            </div>
+            <button type="submit">Continue to Step 2</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2025 MedPortal Health Systems</p>
+    </footer>
+</body>
+</html>
